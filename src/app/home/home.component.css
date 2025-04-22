@@ -1,0 +1,172 @@
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: red;
+    }
+  
+    .main {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #FDF6EB;
+    }
+  
+    .container {
+      display: flex;
+      flex-direction: row;
+      margin: 20px;
+      height: 85vh; 
+      box-sizing: border-box;
+      gap: 10px;
+      width: 95vw;
+    }
+  
+    .square-container{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex-grow: 3;
+    }
+
+    .square1 {
+      background: #F48C44;
+      flex-grow: 1;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* centers text vertically */
+    }
+    
+    .square1 p {
+      margin: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .map_view{
+      background: white;
+      flex-grow: 4;
+      border-radius: 10px;
+    }
+
+    .map_view-container{
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .square-row{
+      display: flex;
+      flex-direction: row;
+      flex-grow: 1;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .square2{
+      background: white;
+      flex-grow: 1;
+      border-radius: 10px;
+    }
+
+    .square3{
+      background: white;
+      flex-grow: 1;
+      border-radius: 10px;
+    }
+  
+   /* Basic styles for table view container */
+/* Basic styles for table view container */
+/* Basic styles for table view container */
+/* Basic styles for table view container */
+.table_view {
+  background-color: white;
+  flex-grow: 4;
+  border-radius: 10px;
+  padding: 20px;
+  box-sizing: border-box; /* Ensures padding is included in the element's total width */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Prevents content from overflowing */
+}
+
+/* Table heading */
+.table-heading {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+/* Search bar styling */
+.search-bar {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box; /* Ensures padding does not cause overflow */
+}
+
+.search-bar:focus {
+  border-color: #4a90e2;
+  outline: none;
+}
+
+/* Table styling */
+.logs-table-wrapper {
+  max-height: 400px; /* Adjust the height as per your needs */
+  overflow-y: auto; /* Makes the table scrollable vertically */
+}
+
+.logs-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.logs-table th,
+.logs-table td {
+  padding: 0.75rem;
+  text-align: left;
+  white-space: nowrap; /* Prevents wrapping */
+  overflow: hidden; /* Hides overflowing content */
+  text-overflow: ellipsis; /* Displays ellipsis when content overflows */
+}
+
+.logs-table td {
+  max-width: 150px; /* Adjust based on your needs */
+}
+
+.logs-table th {
+  background-color: #f4f4f4;
+  font-weight: 600;
+}
+
+.logs-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.logs-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Border between rows */
+.logs-table tr {
+  border-top: 1px solid #ddd;
+}
+
+.image-small-rounded {
+  width: 40px; /* Adjust size as needed */
+  height: 40px; /* Ensure the height and width are the same for a perfect circle */
+  border-radius: 50%; /* Makes the image rounded */
+  object-fit: cover; /* Ensures the image covers the area without distortion */
+}
+
+

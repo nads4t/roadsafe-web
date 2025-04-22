@@ -1,0 +1,30 @@
+.top-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    height: 60px;
+    box-sizing: border-box; /* Ensure padding doesn't affect the layout */
+}
+
+.nav-left {
+    flex-shrink: 0; /* Prevent clipping on the left side */
+}
+
+.nav-right {
+    flex-shrink: 0; /* Prevent clipping on the right side */
+    text-overflow: ellipsis; /* Handle long text gracefully */
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide overflow text */
+}
+
+.content-wrapper {
+    margin-top: 55px; /* Increase margin-top to prevent overlap with navbar */
+}
