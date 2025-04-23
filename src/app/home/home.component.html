@@ -1,13 +1,13 @@
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 <main class="main">
-    <div class ="container">
-      <div class ="square-container">
+    <div class="container">
+      <div class="square-container">
         <div class="square1">
          <p style="font-size: 1.5rem">Last submitted damage was at <b>Daraga City</b></p>
          <p style="font-size: 1rem">Sabihan mo na agad si kap para iwas disgrasya</p>
         </div>
-        <div class="map_view">
-          map view
-        </div> 
+        <div class="map_view" id="map"></div>
       </div>
       <div class="map_view-container">
         <div class="square-row">
@@ -19,46 +19,31 @@
           </div>  
         </div>
         <div class="table_view">  
-         <!-- Heading -->
-    <h2 class="table-heading">Logs</h2>
-
-    <!-- Search Bar -->
-    <input
-      type="text"
-      placeholder="Search logs..."
-      class="search-bar"
-    />
-
-    <!-- Table -->
-    <div class="logs-table-wrapper">
-    <table class="logs-table">
-      <thead>
-        <tr>
-          <th>Image</th>
-          <th>Confidence</th>
-          <th>Date</th>
-          <th class="px-4 py-2">Location</th>
-          <th class="px-4 py-2">Prediction</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of tableData">
-          <td><img [src]="item.image" alt="Item Image" class="image-small-rounded" /></td>
-          <td>{{ item.confidence }}</td>
-          <td>{{ item.readableDate | date:'medium' }}</td>
-          <td>{{ item.location }}</td>
-          <td>{{ item.prediction }}</td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
+          <h2 class="table-heading">Logs</h2>
+          <input type="text" placeholder="Search logs..." class="search-bar" />
+          <div class="logs-table-wrapper">
+            <table class="logs-table">
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Confidence</th>
+                  <th>Date</th>
+                  <th class="px-4 py-2">Location</th>
+                  <th class="px-4 py-2">Prediction</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of tableData">
+                  <td><img [src]="item.image" alt="Item Image" class="image-small-rounded" /></td>
+                  <td>{{ item.confidence }}</td>
+                  <td>{{ item.readableDate | date:'medium' }}</td>
+                  <td>{{ item.location }}</td>
+                  <td>{{ item.prediction }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
-  </main>
-  
-  
- 
-  
-  
-  
+</main>

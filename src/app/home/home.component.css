@@ -169,4 +169,31 @@
   object-fit: cover; /* Ensures the image covers the area without distortion */
 }
 
+/* Map specific styles */
+#map {
+  height: 100%;
+  width: 100%;
+  min-height: 400px;
+  z-index: 0;
+}
+
+.map_view {
+  position: relative;
+  overflow: hidden;
+  flex-grow: 4;
+  border-radius: 10px;
+  background: white;
+}
+
+/* Fix for Leaflet marker icons */
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+  display: block;
+}
+
+.leaflet-container {
+  background-color: #fff;
+}
+
+
 

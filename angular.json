@@ -21,9 +21,27 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
+              "src/favicon.ico",
+              "src/assets",
               {
                 "glob": "**/*",
-                "input": "public"
+                "input": "node_modules/leaflet/dist/images",
+                "output": "assets/"
+              },
+              {
+                "glob": "marker-icon.png",
+                "input": "node_modules/leaflet/dist/images",
+                "output": "assets/"
+              },
+              {
+                "glob": "marker-icon-2x.png",
+                "input": "node_modules/leaflet/dist/images",
+                "output": "assets/"
+              },
+              {
+                "glob": "marker-shadow.png",
+                "input": "node_modules/leaflet/dist/images",
+                "output": "assets/"
               }
             ],
             "styles": [
