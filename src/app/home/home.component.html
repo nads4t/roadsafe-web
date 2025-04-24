@@ -1,11 +1,11 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
 <main class="main">
     <div class="container">
       <div class="square-container">
         <div class="square1">
          <p style="font-size: 1.5rem">Last submitted damage was at <b>Daraga City</b></p>
-         <p style="font-size: 1rem">Sabihan mo na agad si kap para iwas disgrasya</p>
+         <p style="font-size: 1rem"></p>
         </div>
         <div class="map_view" id="map"></div>
       </div>
@@ -28,16 +28,16 @@
                   <th>Image</th>
                   <th>Confidence</th>
                   <th>Date</th>
-                  <th class="px-4 py-2">Location</th>
-                  <th class="px-4 py-2">Prediction</th>
+                  <th>Location</th>
+                  <th>Prediction</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of tableData">
+                <tr *ngFor="let item of tableData" (click)="showLocationOnMap(item)" class="clickable-row">
                   <td><img [src]="item.image" alt="Item Image" class="image-small-rounded" /></td>
                   <td>{{ item.confidence }}</td>
                   <td>{{ item.readableDate | date:'medium' }}</td>
-                  <td>{{ item.location }}</td>
+                  <td>{{ formatLocation(item.location) }}</td>
                   <td>{{ item.prediction }}</td>
                 </tr>
               </tbody>
