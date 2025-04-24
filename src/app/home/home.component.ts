@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
           ...item,
           readableDate: this.convertTimestamp(item.timestamp)
         }));
+        this.showAllMarkers();
       },
       error: (err) => console.error('Error loading data:', err)
     });
@@ -57,7 +58,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   private initMap(): void {
-    // Fix for default marker icons
     this.fixLeafletMarkerIcons();
 
     this.map = L.map('map').setView([13.1480, 123.7132], 14);
@@ -72,7 +72,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
     const iconUrl = 'assets/marker-icon.png';
     const shadowUrl = 'assets/marker-shadow.png';
 
-    // Check if we're in a browser environment
     if (typeof window !== 'undefined') {
       const iconDefault = L.Icon.Default.prototype as any;
       if (iconDefault._getIconUrl) {
@@ -92,6 +91,29 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }
   }
 
+  private showAllMarkers(): void {
+    if (!this.map) return;
+
+    this.clearMarkers();
+
+    for (const item of this.tableData) {
+      if (item.location && typeof item.location.latitude === 'number' && typeof item.location.longitude === 'number') {
+        const latLng = L.latLng(item.location.latitude, item.location.longitude);
+        const marker = L.marker(latLng, {
+          icon: new L.Icon.Default()
+        }).addTo(this.map);
+
+        marker.bindPopup(this.createPopupContent(item));
+        this.markers.push(marker);
+      }
+    }
+
+    if (this.markers.length) {
+      const group = L.featureGroup(this.markers);
+      this.map.fitBounds(group.getBounds(), { padding: [20, 20] });
+    }
+  }
+
   formatLocation(location: { latitude: number, longitude: number } | undefined): string {
     if (!location) return 'No location';
     return `${location.latitude.toFixed(4)}, ${location.longitude.toFixed(4)}`;
@@ -99,19 +121,22 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   showLocationOnMap(item: TableDataItem): void {
     if (!this.map || !item?.location) return;
-
-    this.clearMarkers();
-
-    const latLng = L.latLng(item.location.latitude, item.location.longitude);
-    this.map.setView(latLng, 15);
-
-    const marker = L.marker(latLng, {
-      icon: new L.Icon.Default()
-    }).addTo(this.map);
-
-    marker.bindPopup(this.createPopupContent(item)).openPopup();
-    this.markers.push(marker);
+  
+    const targetLatLng = L.latLng(item.location.latitude, item.location.longitude);
+    this.map.setView(targetLatLng, 15); // Recenter and zoom
+  
+    // Find the existing marker for this item and open its popup
+    const matchingMarker = this.markers.find(marker => {
+      const latLng = marker.getLatLng();
+      return latLng.lat === item.location.latitude && latLng.lng === item.location.longitude;
+    });
+  
+    if (matchingMarker) {
+      matchingMarker.openPopup();
+    }
   }
+  
+  
 
   private createPopupContent(item: TableDataItem): string {
     return `
