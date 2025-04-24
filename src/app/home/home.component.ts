@@ -48,6 +48,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
     });
   }
 
+  getRowCount(): number {
+    return this.tableData.length;
+  }
+
   private convertTimestamp(timestamp: any): Date {
     return timestamp?.toDate ? timestamp.toDate() : new Date();
   }

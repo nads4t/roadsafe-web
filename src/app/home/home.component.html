@@ -19,7 +19,10 @@
           </div>  
         </div>
         <div class="table_view">  
-          <h2 class="table-heading">Logs</h2>
+          <div class="logs-header">
+            <h2 class="logs-title">Logs</h2>
+            <span class="logs-count">{{ getRowCount() }} total</span>
+          </div>
           <input type="text" placeholder="Search logs..." class="search-bar" />
           <div class="logs-table-wrapper">
             <table class="logs-table">
