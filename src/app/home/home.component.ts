@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FirestoreService } from '../firestore.service';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; // Import FormsModule
 import * as L from 'leaflet';
 
 interface TableDataItem {
@@ -17,12 +18,14 @@ interface TableDataItem {
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, AfterViewInit {
   tableData: TableDataItem[] = [];
+  selectedSort: string = '';
   private map: L.Map | null = null;
   private markers: L.Marker[] = [];
 
@@ -43,10 +46,29 @@ export class HomeComponent implements OnInit, AfterViewInit {
           ...item,
           readableDate: this.convertTimestamp(item.timestamp)
         }));
+        this.sortTableData(); // Sort after loading
         this.showAllMarkers();
       },
       error: (err) => console.error('Error loading data:', err)
     });
+  }
+
+  sortTableData(): void {
+    switch (this.selectedSort) {
+      case 'confidence':
+        this.tableData.sort((a, b) => b.confidence - a.confidence);
+        break;
+      case 'date':
+        this.tableData.sort((a, b) => new Date(b.readableDate).getTime() - new Date(a.readableDate).getTime());
+        break;
+      case 'prediction':
+        this.tableData.sort((a, b) => b.prediction.localeCompare(a.prediction));
+        break;
+      default:
+        break;
+    }
+
+    this.showAllMarkers(); // Re-render markers to match sorted data
   }
 
   getRowCount(): number {
@@ -121,22 +143,19 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   showLocationOnMap(item: TableDataItem): void {
     if (!this.map || !item?.location) return;
-  
+
     const targetLatLng = L.latLng(item.location.latitude, item.location.longitude);
-    this.map.setView(targetLatLng, 15); // Recenter and zoom
-  
-    // Find the existing marker for this item and open its popup
+    this.map.setView(targetLatLng, 15);
+
     const matchingMarker = this.markers.find(marker => {
       const latLng = marker.getLatLng();
       return latLng.lat === item.location.latitude && latLng.lng === item.location.longitude;
     });
-  
+
     if (matchingMarker) {
       matchingMarker.openPopup();
     }
   }
-  
-  
 
   private createPopupContent(item: TableDataItem): string {
     return `

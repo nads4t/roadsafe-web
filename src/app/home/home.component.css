@@ -95,23 +95,36 @@
 }
 
 /* Table heading */
-.table-heading {
-  font-size: 1.5rem;
-  font-weight: 600;
+
+
+/* Search bar styling */
+.search-container {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
   margin-bottom: 1rem;
 }
 
-/* Search bar styling */
 .search-bar {
-  width: 100%;
+  flex: 1;
   padding: 0.75rem;
-  margin-bottom: 1rem;
   border: 1px solid #ccc;
   border-radius: 8px;
   font-size: 1rem;
   transition: border-color 0.3s ease;
-  box-sizing: border-box; /* Ensures padding does not cause overflow */
+  box-sizing: border-box;
 }
+
+.log-filter {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #fff;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
 
 .search-bar:focus {
   border-color: #4a90e2;
@@ -133,7 +146,20 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  
+}
+
+.logs-title{
+  margin: 0;
+
+}
+
+.logs-description {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 0.5rem;
   margin-bottom: 1rem;
+
 }
 
 .logs-count {

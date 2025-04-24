@@ -23,7 +23,19 @@
             <h2 class="logs-title">Logs</h2>
             <span class="logs-count">{{ getRowCount() }} total</span>
           </div>
-          <input type="text" placeholder="Search logs..." class="search-bar" />
+          <p class="logs-description">
+            View all detected road damages
+          </p>          
+          <div class="search-container">
+            <input type="text" placeholder="Search logs..." class="search-bar" />
+            <select class="log-filter" [(ngModel)]="selectedSort" (change)="sortTableData()">
+              <option value="" disabled selected>Sort by</option>
+              <option value="confidence">Confidence</option>
+              <option value="date">Date</option>
+              <option value="prediction">Prediction</option>
+            </select>            
+          </div>
+          
           <div class="logs-table-wrapper">
             <table class="logs-table">
               <thead>
