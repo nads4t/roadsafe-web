@@ -4,8 +4,8 @@
     <div class="container">
       <div class="square-container">
         <div class="square1">
-         <p style="font-size: 1.5rem">Last submitted damage was at <b>Daraga City</b></p>
-         <p style="font-size: 1rem"></p>
+         <p style="font-size: 1.5rem; color: white;">Last submitted damage was at <b>Daraga City</b></p>
+         <p style="font-size: 1rem; color: white;">Report mo na agad para masolusyunan</p>
         </div>
         <div class="map_view" id="map"></div>
       </div>
@@ -60,7 +60,7 @@
                   <td><img [src]="item.image" alt="Item Image" class="image-small-rounded" /></td>
                   <td>{{ item.confidence }}</td>
                   <td>{{ item.readableDate | date:'medium' }}</td>
-                  <td>{{ formatLocation(item.location) }}</td>
+                  <td>{{ formatLocation(item.location) }} </td>
                   <td>{{ item.prediction }}</td>
                 </tr>
               </tbody>

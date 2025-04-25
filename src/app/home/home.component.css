@@ -40,6 +40,8 @@
       display: flex;
       flex-direction: column;
       justify-content: center; /* centers text vertically */
+      height:10rem;
+      padding: 1rem;
     }
     
     .square1 p {
