@@ -55,11 +55,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   private loadTableData(): void {
     this.firestoreService.getTableData().subscribe({
       next: (data: any[]) => {
-        this.tableData = data.map(item => ({
-          ...item,
-          readableDate: this.convertTimestamp(item.timestamp)
-        }));
-        this.sortTableData(); // Sort after loading
+        this.tableData = data; // readableDate already exists!
+        this.sortTableData();
         this.showAllMarkers();
       },
       error: (err) => console.error('Error loading data:', err)
