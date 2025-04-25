@@ -43,6 +43,30 @@
       height:10rem;
       padding: 1rem;
     }
+
+    .latest-address {
+      font-size: 1.5rem;
+      color: white;
+      word-wrap: break-word; /* ensure long text breaks */
+      overflow-wrap: break-word;
+      line-height: 1.4;
+    }
+    
+    .break-address {
+      display: inline-block;
+      max-width: 250px; /* set your desired breakpoint width */
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+
+    .ellipsis-address {
+      display: inline-block;
+      max-width: 400px; /* or any width you want */
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      vertical-align: top;
+    }    
     
     .square1 p {
       margin: 0;

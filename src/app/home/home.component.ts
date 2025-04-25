@@ -70,16 +70,39 @@ export class HomeComponent implements OnInit, AfterViewInit {
     });
   }
 
+  latestAddress: string = ''; // Add this to your component class
+
   private loadTableData(): void {
     this.firestoreService.getTableData().subscribe({
       next: (data: any[]) => {
-        this.tableData = data; // readableDate already exists!
+        this.tableData = data;
         this.sortTableData();
         this.showAllMarkers();
+  
+        // Sort by timestamp and update latestAddress
+        if (this.tableData.length > 0) {
+          const latestItem = this.tableData.reduce((a, b) =>
+            new Date(a.readableDate).getTime() > new Date(b.readableDate).getTime() ? a : b
+          );
+  
+          // Get address for latest item
+          this.firestoreService.getAddressFromCoordinates(
+            latestItem.location.latitude,
+            latestItem.location.longitude
+          ).subscribe({
+            next: (address) => {
+              this.latestAddress = address?.place_name || 'Unknown Location';
+            },
+            error: () => {
+              this.latestAddress = 'Unknown Location';
+            }
+          });
+        }
       },
       error: (err) => console.error('Error loading data:', err)
     });
   }
+  
 
   sortTableData(): void {
     switch (this.selectedSort) {
