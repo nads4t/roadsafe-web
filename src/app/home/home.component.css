@@ -61,25 +61,40 @@
       flex-grow: 0;
     }
 
-    .square-row{
+    .square-row {
       display: flex;
       flex-direction: row;
       flex-grow: 1;
       gap: 10px;
       margin-bottom: 10px;
     }
-
-    .square2{
+    
+    .square2,
+    .square3 {
       background: white;
       flex-grow: 1;
       border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
-
-    .square3{
-      background: white;
-      flex-grow: 1;
-      border-radius: 10px;
+    
+    .square-header {
+      font-weight: bold;
+      font-size: 1rem;
+      color: #989898;
     }
+    
+    .square-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      font-size: 1.25rem;
+      font-weight: 500;
+    }
+    
   
    /* Basic styles for table view container */
 /* Basic styles for table view container */
@@ -181,7 +196,7 @@
 }
 
 .logs-table td {
-  max-width: 150px; /* Adjust based on your needs */
+  max-width: 5rem; /* Adjust based on your needs */
 }
 
 .logs-table th {
