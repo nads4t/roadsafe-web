@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionData } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, query, where } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Timestamp } from 'firebase/firestore';
@@ -37,4 +37,25 @@ export class FirestoreService {
       })
     );
   }
+
+  getTodayCount(): Observable<number> {
+    const tableRef = collection(this.firestore, 'road damage detections');
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0); // Set start of the day
+    const todayEnd = new Date();
+    todayEnd.setHours(23, 59, 59, 999); // Set end of the day
+
+    // Create a query to get documents where the date is within today
+    const todayQuery = query(
+      tableRef,
+      where('date', '>=', Timestamp.fromDate(todayStart)),
+      where('date', '<=', Timestamp.fromDate(todayEnd))
+    );
+
+    return collectionData(todayQuery, { idField: 'id' }).pipe(
+      map(data => data.length) // Return the count of documents
+    );
+  }
 }
+
+

@@ -30,12 +30,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
   uniqueUserCount: number = 0;
   private map: L.Map | null = null;
   private markers: L.Marker[] = [];
+  todayCount: number = 0; // New variable for today’s count
+
 
   constructor(private firestoreService: FirestoreService) {}
 
   ngOnInit(): void {
     this.loadTableData();
     this.loadUniqueUserCount();
+    this.loadTodayCount(); // Load the count for today
   }
 
   ngAfterViewInit(): void {
@@ -52,6 +55,18 @@ export class HomeComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
+  private loadTodayCount(): void {
+    this.firestoreService.getTodayCount().subscribe({
+      next: (count) => {
+        this.todayCount = count;
+      },
+      error: (err) => {
+        console.error('Error fetching today count:', err);
+      }
+    });
+  }
+
 
   private loadTableData(): void {
     this.firestoreService.getTableData().subscribe({

@@ -1,7 +1,5 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
-
-
 <main class="main">
     <div class="container">
       <div class="square-container">
@@ -17,16 +15,15 @@
             <div class="square-header">Total Users</div>
             <div class="square-footer">
               <span>{{ uniqueUserCount }}</span>
-              <span><i class="fa-solid fa-user"></i></span> <!-- You can replace this with any icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#f48c44" d="M399 384.2C376.9 345.8 335.4 320 288 320l-64 0c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"/></svg>
             </div>
           </div>
         
-          <div class="square3">
-            <div class="square-header">Logs Today</div>
+          <div class="square2">
+            <div class="square-header">Logged today</div>
             <div class="square-footer">
-              <span>123</span>
-              <span>👥</span> <!-- Replace with a relevant icon -->
-            </div>
+              <span>{{ todayCount }}</span>
+              <svg xmlns="http://www.w3.org/2000/svg" height="12" width="12" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#f48c44" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm11.3-395.3l112 112c4.6 4.6 5.9 11.5 3.5 17.4s-8.3 9.9-14.8 9.9l-64 0 0 96c0 17.7-14.3 32-32 32l-32 0c-17.7 0-32-14.3-32-32l0-96-64 0c-6.5 0-12.3-3.9-14.8-9.9s-1.1-12.9 3.5-17.4l112-112c6.2-6.2 16.4-6.2 22.6 0z"/></svg>            </div>
           </div>
         </div>        
         <div class="table_view">  
