@@ -189,6 +189,27 @@
 
 }
 
+.location-container {
+  display: block; /* Keeps the location and address within the same cell */
+}
+
+.location-text {
+  display: block; /* Ensures location takes full width */
+  overflow: hidden; /* Hides the overflowing text */
+  text-overflow: ellipsis; /* Adds the ellipsis (...) if the text overflows */
+}
+
+.address-text {
+  display: block; /* Makes the address appear below the location */
+  font-size: 0.9rem; /* Adjust font size */
+  color: gray; /* Optional color change */
+  margin-top: 4px; /* Optional spacing */
+  white-space: nowrap; /* Prevents the address from wrapping to the next line */
+  overflow: hidden; /* Hides the overflowing text */
+  text-overflow: ellipsis; /* Adds the ellipsis (...) if the text overflows */
+}
+
+
 .logs-description {
   font-size: 0.9rem;
   color: #555;

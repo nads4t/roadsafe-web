@@ -15,6 +15,7 @@ interface TableDataItem {
   };
   prediction: string;
   timestamp?: any;
+  address?: string;  // Add the address property here
 }
 
 @Component({
@@ -25,6 +26,7 @@ interface TableDataItem {
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, AfterViewInit {
+  address: string = '';
   tableData: TableDataItem[] = [];
   selectedSort: string = '';
   uniqueUserCount: number = 0;
@@ -32,8 +34,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
   private markers: L.Marker[] = [];
   todayCount: number = 0; // New variable for today’s count
 
-
-  constructor(private firestoreService: FirestoreService) {}
+  constructor(
+    private firestoreService: FirestoreService
+  ) {}
 
   ngOnInit(): void {
     this.loadTableData();
@@ -67,7 +70,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
     });
   }
 
-
   private loadTableData(): void {
     this.firestoreService.getTableData().subscribe({
       next: (data: any[]) => {
@@ -99,10 +101,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   getRowCount(): number {
     return this.tableData.length;
-  }
-
-  private convertTimestamp(timestamp: any): Date {
-    return timestamp?.toDate ? timestamp.toDate() : new Date();
   }
 
   private initMap(): void {
@@ -141,26 +139,41 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   private showAllMarkers(): void {
     if (!this.map) return;
-
+  
     this.clearMarkers();
-
+  
     for (const item of this.tableData) {
       if (item.location && typeof item.location.latitude === 'number' && typeof item.location.longitude === 'number') {
         const latLng = L.latLng(item.location.latitude, item.location.longitude);
         const marker = L.marker(latLng, {
           icon: new L.Icon.Default()
         }).addTo(this.map);
-
-        marker.bindPopup(this.createPopupContent(item));
+  
+        // Fetch the address from Mapbox and store it in tableData
+        this.firestoreService.getAddressFromCoordinates(item.location.latitude, item.location.longitude)
+          .subscribe({
+            next: (address) => {
+              const locationName = address ? address.place_name : 'Address not available';
+              item.address = locationName; // Store address directly in item
+              marker.bindPopup(this.createPopupContent(item, locationName));
+            },
+            error: (err) => {
+              console.error('Error fetching address:', err);
+              item.address = 'Address not available'; // Fallback address
+              marker.bindPopup(this.createPopupContent(item, 'Address not available'));
+            }
+          });
+  
         this.markers.push(marker);
       }
     }
-
+  
     if (this.markers.length) {
       const group = L.featureGroup(this.markers);
       this.map.fitBounds(group.getBounds(), { padding: [20, 20] });
     }
   }
+  
 
   formatLocation(location: { latitude: number, longitude: number } | undefined): string {
     if (!location) return 'No location';
@@ -183,8 +196,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }
   }
 
-  private createPopupContent(item: TableDataItem): string {
-    return `
+  private createPopupContent(item: TableDataItem, address: string): string {
+    return ` 
       <div class="leaflet-popup-content-wrapper">
         <div class="leaflet-popup-content">
           <div style="text-align: center;">
@@ -194,7 +207,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
           <div style="margin-top: 8px;">
             <b>Prediction:</b> ${item.prediction}<br>
             <b>Confidence:</b> ${item.confidence}<br>
-            <b>Date:</b> ${new Date(item.readableDate).toLocaleString()}
+            <b>Date:</b> ${new Date(item.readableDate).toLocaleString()}<br>
+            <b>Address:</b> ${address}
           </div>
         </div>
       </div>

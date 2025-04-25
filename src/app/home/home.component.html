@@ -60,7 +60,12 @@
                   <td><img [src]="item.image" alt="Item Image" class="image-small-rounded" /></td>
                   <td>{{ item.confidence }}</td>
                   <td>{{ item.readableDate | date:'medium' }}</td>
-                  <td>{{ formatLocation(item.location) }} </td>
+                  <td>
+                    <div class="location-container">
+                      <span class="location-text">{{ item.address || 'Loading address...' }}</span>
+                      <span class="address-text">{{ formatLocation(item.location) }}</span>
+                    </div>
+                  </td>
                   <td>{{ item.prediction }}</td>
                 </tr>
               </tbody>
