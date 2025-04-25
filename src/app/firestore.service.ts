@@ -13,16 +13,27 @@ export class FirestoreService {
 
     return collectionData(tableRef, { idField: 'id' }).pipe(
       map(data => {
-        // Convert date and sort by latest first (descending order)
+        // Convert Firestore Timestamp to Date
         const updatedData = data.map(item => ({
           ...item,
           readableDate: (item['date'] as Timestamp)?.toDate()
         }));
 
-        // Sort by readableDate in descending order (latest first)
+        // Sort by date descending
         return updatedData.sort((a, b) => {
           return (b.readableDate as Date).getTime() - (a.readableDate as Date).getTime();
         });
+      })
+    );
+  }
+
+  getUniqueUserCount(): Observable<number> {
+    const tableRef = collection(this.firestore, 'road damage detections');
+
+    return collectionData(tableRef).pipe(
+      map((data: any[]) => {
+        const uniqueUsers = new Set(data.map(item => item.userId || item.id)); // Replace with correct user ID field
+        return uniqueUsers.size;
       })
     );
   }

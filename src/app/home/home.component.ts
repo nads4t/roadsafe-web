@@ -26,6 +26,7 @@ interface TableDataItem {
 export class HomeComponent implements OnInit, AfterViewInit {
   tableData: TableDataItem[] = [];
   selectedSort: string = '';
+  uniqueUserCount: number = 0;
   private map: L.Map | null = null;
   private markers: L.Marker[] = [];
 
@@ -33,10 +34,22 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.loadTableData();
+    this.loadUniqueUserCount();
   }
 
   ngAfterViewInit(): void {
     this.initMap();
+  }
+
+  private loadUniqueUserCount(): void {
+    this.firestoreService.getUniqueUserCount().subscribe({
+      next: (count) => {
+        this.uniqueUserCount = count;
+      },
+      error: (err) => {
+        console.error('Error fetching unique user count:', err);
+      }
+    });
   }
 
   private loadTableData(): void {
