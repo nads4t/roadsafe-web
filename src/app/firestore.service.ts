@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Firestore, collection, collectionData, query, where } from '@angular/fire/firestore';
+import { Firestore, collection, collectionData, query, where, doc, deleteDoc, writeBatch } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Timestamp } from 'firebase/firestore';
@@ -79,6 +79,30 @@ export class FirestoreService {
         .catch(error => {
           console.error('Error fetching address from Mapbox:', error);
           observer.error(error);
+        });
+    });
+  }
+
+  // Corrected method to delete logs from Firestore using batch write
+  deleteLogs(logs: any[]): Observable<any> {
+    const batch = writeBatch(this.firestore); // Correct way to instantiate the batch
+
+    // Loop through each selected log and delete it from Firestore
+    logs.forEach(log => {
+      const logRef = doc(this.firestore, 'road damage detections', log.id); // Assuming 'id' is the unique identifier for each log
+      batch.delete(logRef);
+    });
+
+    // Commit the batch to delete the logs
+    return new Observable((observer) => {
+      batch.commit()
+        .then(() => {
+          observer.next('Logs deleted successfully');
+          observer.complete();
+        })
+        .catch(err => {
+          console.error('Error deleting logs:', err);
+          observer.error(err);
         });
     });
   }

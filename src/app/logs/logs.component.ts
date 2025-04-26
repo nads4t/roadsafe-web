@@ -14,6 +14,7 @@ interface TableDataItem {
   prediction: string;
   timestamp?: any;
   address?: string;
+  selected?: boolean;  // Add a 'selected' property for checkbox state
 }
 
 @Component({
@@ -26,10 +27,10 @@ interface TableDataItem {
 export class LogsComponent implements OnInit {
   tableData: TableDataItem[] = [];
   selectedSort: string = '';
+  deleteMode: boolean = false;
+  showConfirmDeletion: boolean = false;
 
-  constructor(
-    private firestoreService: FirestoreService
-  ) {}
+  constructor(private firestoreService: FirestoreService) {}
 
   ngOnInit(): void {
     this.loadTableData();
@@ -90,5 +91,51 @@ export class LogsComponent implements OnInit {
   showLocationOnMap(item: TableDataItem): void {
     console.log('Clicked item location:', item.location);
     // You can later implement showing the map or navigating to another component
+  }
+
+  // Enable delete mode, which shows checkboxes
+  enableDeleteMode(): void {
+    this.deleteMode = true;
+  }
+
+  // Cancel delete mode, which removes checkboxes
+  cancelDeleteMode(): void {
+    this.deleteMode = false;
+    this.deselectAllRows();
+    this.showConfirmDeletion = false;
+  }
+
+  // Select all rows with a checkbox click
+  selectAllRows(event: any): void {
+    const checked = event.target.checked;
+    this.tableData.forEach(item => item.selected = checked);
+    this.checkSelectedRows();
+  }
+
+  // Check if any row is selected and show the confirm button
+  checkSelectedRows(): void {
+    const selectedCount = this.tableData.filter(item => item.selected).length;
+    this.showConfirmDeletion = selectedCount > 0;
+  }
+
+  // Confirm deletion of selected rows
+  confirmDeletion(): void {
+    const selectedLogs = this.tableData.filter(item => item.selected);
+
+    // Call the deleteLogs method from the Firestore service to delete from Firestore
+    this.firestoreService.deleteLogs(selectedLogs).subscribe({
+      next: () => {
+        // Remove the deleted items from the local table data
+        this.tableData = this.tableData.filter(item => !item.selected);
+        this.cancelDeleteMode(); // Exit delete mode
+      },
+      error: (err) => console.error('Error deleting logs:', err)
+    });
+  }
+
+  // Deselect all rows
+  deselectAllRows(): void {
+    this.tableData.forEach(item => item.selected = false);
+    this.showConfirmDeletion = false;
   }
 }
