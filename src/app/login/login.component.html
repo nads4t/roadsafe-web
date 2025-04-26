@@ -1,8 +1,12 @@
-<div>
-    <input [(ngModel)]="email" placeholder="Email" type="email">
-    <input [(ngModel)]="password" placeholder="Password" type="password">
-    <button (click)="login()">Login</button>
+<div class="background">
+    <div class="card">
+      <div class="form">
+        <input [(ngModel)]="email" placeholder="Email" type="email" class="input-field">
+        <input [(ngModel)]="password" placeholder="Password" type="password" class="input-field">
+        <button (click)="login()" class="submit-button">Login</button>
+      </div>
   
-    <p *ngIf="errorMessage">{{ errorMessage }}</p>
+      <p *ngIf="errorMessage" class="error-text">{{ errorMessage }}</p>
+    </div>
   </div>
   
