@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 
 import * as L from 'leaflet';
+import { Router } from '@angular/router';
 
 interface TableDataItem {
   image: string;
@@ -35,8 +36,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   todayCount: number = 0; // New variable for today’s count
 
   constructor(
-    private firestoreService: FirestoreService
-  ) {}
+    private firestoreService: FirestoreService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadTableData();
@@ -244,4 +244,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
     });
     this.markers = [];
   }
+
+  navigateToLogs() {
+    this.router.navigate(['logs']);
+  }
+  
 }

@@ -204,14 +204,40 @@
 .logs-header {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  
+  justify-content: space-between; /* Keeps space between title and the button */
 }
 
-.logs-title{
+
+.logs-header .logs-title {
   margin: 0;
-
 }
+
+
+.logs-header .logs-count {
+  margin: 0;
+}
+
+.logs-header .redirect-button {
+  background: transparent;
+  border: none;
+  font-size: 2rem; /* Large ">" button */
+  color: #F48C44; /* Color to match your theme */
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 0.5rem;
+  margin-left: auto; /* Pushes the button to the right */
+}
+
+/* Hover effect for the button */
+.logs-header .redirect-button:hover {
+  color: #e67e22; /* Darker shade on hover */
+}
+
+/* Focus effect to remove default outline */
+.logs-header .redirect-button:focus {
+  outline: none;
+}
+
 
 .location-container {
   display: block; /* Keeps the location and address within the same cell */

@@ -31,9 +31,11 @@
         </div>        
         <div class="table_view">  
           <div class="logs-header">
-            <h2 class="logs-title">Logs</h2>
+            <h2 class="logs-title">Logs&nbsp;</h2>
             <span class="logs-count">{{ getRowCount() }} total</span>
-          </div>
+            <!-- Added button -->
+            <button class="redirect-button" (click)="navigateToLogs()">&gt;</button>
+          </div>          
           <p class="logs-description">
             View all detected road damages
           </p>          
