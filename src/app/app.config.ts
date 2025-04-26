@@ -1,6 +1,7 @@
 import { ApplicationConfig } from '@angular/core';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideRouter } from '@angular/router'; // ✅ Import this
 import { routes } from './app.routes'; // ✅ Your route definitions
 
@@ -19,6 +20,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth()),
     provideRouter(routes) // ✅ Add this to enable routing
   ]
 };
