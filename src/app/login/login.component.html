@@ -1,10 +1,10 @@
 <div class="background">
   <div class="card">
     <div class="card-left">
-      <h2>Sign into your account</h2>
+      <h2><b>Sign into your account</b></h2>
       <p class="sub-header">Enter your credentials</p>
       <form class="form" (ngSubmit)="login()">
-        <label for="email">Email Address</label>
+        <label for="email"><b>Email Address</b></label>
         <input 
           id="email" 
           type="email" 
@@ -15,7 +15,7 @@
           required
         >
         
-        <label for="password">Password</label>
+        <label for="password"><b>Password</b></label>
         <input 
           id="password" 
           type="password" 
@@ -26,7 +26,7 @@
           required
         >
         
-        <button type="submit" class="submit-button">Login</button>
+        <button type="submit" class="submit-button">Submit →</button>
       </form>
 
       <!-- Show error message if exists -->
@@ -34,7 +34,14 @@
     </div>
 
     <div class="card-right">
-      <img src="https://via.placeholder.com/300x400" alt="Login Image" class="login-image">
+      <div class="image-container">
+        <img [src]="currentImage" alt="Login Image" class="login-image">
+      </div>
+      <div class="indicator-container">
+        <span *ngFor="let image of images; let i = index" 
+              [class.active]="i === currentImageIndex" 
+              class="indicator"></span>
+      </div>
     </div>
   </div>
 </div>
