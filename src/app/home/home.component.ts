@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FirestoreService } from '../firestore.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { NgxGaugeModule } from 'ngx-gauge';
 
 import * as L from 'leaflet';
 import { Router } from '@angular/router';
@@ -22,11 +23,12 @@ interface TableDataItem {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgxGaugeModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, AfterViewInit {
+  latestConfidence: number = 0; // Variable to store the latest confidence value
   address: string = '';
   tableData: TableDataItem[] = [];
   selectedSort: string = '';
@@ -78,13 +80,16 @@ export class HomeComponent implements OnInit, AfterViewInit {
         this.tableData = data;
         this.sortTableData();
         this.showAllMarkers();
-  
-        // Sort by timestamp and update latestAddress
+
+        // Sort by timestamp and update latestConfidence
         if (this.tableData.length > 0) {
           const latestItem = this.tableData.reduce((a, b) =>
             new Date(a.readableDate).getTime() > new Date(b.readableDate).getTime() ? a : b
           );
-  
+
+          // Get the latest confidence value and convert it to percentage with one decimal
+          this.latestConfidence = parseFloat((latestItem.confidence * 100).toFixed(1)); // Convert to percentage with 1 decimal
+
           // Get address for latest item
           this.firestoreService.getAddressFromCoordinates(
             latestItem.location.latitude,

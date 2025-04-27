@@ -4,12 +4,29 @@
     <div class="container">
       <div class="square-container">
         <div class="square1">
-          <p style="font-size: 1.5rem; color: white;">
-            Last submitted damage was at <br>
-            <span class="ellipsis-address"><b>{{ latestAddress }}</b></span>
-          </p>
-          <p style="font-size: 1rem; color: white;">Report mo na agad para masolusyunan</p>
-        </div>        
+          <div class="text-container">
+            <p style="font-size: 1.5rem; color: white;">
+              Last submitted damage was at <br>
+              <span class="ellipsis-address"><b>{{ latestAddress }}</b></span>
+            </p>
+            <p style="font-size: 1rem; color: white;">Report mo na agad para masolusyunan</p>
+          </div>
+          <div class="gauge-container">
+            <ngx-gauge 
+            [value]="latestConfidence" 
+            [min]="0" 
+            [max]="100" 
+            [size]="120"
+            [type]="'semi'" 
+            [thick]="15"
+            [label]="'Confidence'" 
+            [foregroundColor]="'#3b82f6'"
+            [style.color]="'white'"
+            [backgroundColor]="'#d1d5db'"
+            [cap]="'round'">
+            </ngx-gauge>
+          </div>
+        </div>             
         <div class="map_view" id="map"></div>
       </div>
       <div class="map_view-container">

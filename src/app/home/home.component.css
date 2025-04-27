@@ -38,10 +38,22 @@
       border-radius: 10px;
       overflow: hidden;
       display: flex;
-      flex-direction: column;
-      justify-content: center; /* centers text vertically */
-      height:10rem;
+      justify-content: space-between; /* Distribute space between text and gauge */
+      align-items: center; /* Vertically center the content */
+      height: 10rem;
       padding: 1rem;
+    }
+
+    
+    .text-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* Center text vertically */
+    }
+
+    .gauge-container {
+      display: flex;
+      justify-content: flex-end; /* Align gauge to the right */
     }
 
     .latest-address {
@@ -443,5 +455,13 @@
   transform: translateY(-1px);
 }
 
+::ng-deep .ngx-gauge-text {
+  transform: translateY(10px); /* Adjust the text position vertically */
+  font-size: 14px; /* Adjust text size */
+}
 
+::ng-deep .ngx-gauge-label {
+  transform: translateY(10px); /* Adjust label position */
+  font-size: 12px; /* Adjust label size */
+}
 
