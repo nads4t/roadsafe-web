@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common'; // <-- This is fine
 import { Auth } from '@angular/fire/auth';
 import { authState } from 'rxfire/auth';
 import { inject } from '@angular/core';
+import { signOut } from 'firebase/auth'; // Import Firebase signOut method
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,16 @@ export class AppComponent {
         // If user is not logged in and not on login route, redirect to login
         this.router.navigate(['/login']);
       }
+    });
+  }
+
+  // Method to log out the user
+  logout() {
+    signOut(this.auth).then(() => {
+      this.loggedIn = false; // Update login status
+      this.router.navigate(['/login']); // Redirect to login page
+    }).catch((error) => {
+      console.error('Logout error', error); // Handle logout errors
     });
   }
 }

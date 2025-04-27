@@ -28,3 +28,16 @@
 .content-wrapper {
     margin-top: 55px; /* Increase margin-top to prevent overlap with navbar */
 }
+
+.logout {
+    color: #F48C44; /* Blue color for the text */
+    cursor: pointer; /* Pointer cursor to indicate clickability */
+    font-size: 16px; /* Font size */
+    font-weight: 600; /* Slightly bold text */
+    transition: color 0.3s ease, transform 0.3s ease; /* Smooth color and scale transition */
+  }
+  
+  /* Hover effect for the "Log Out" text */
+  .logout:hover {
+    color: red; /* Darker blue color on hover */
+  }
