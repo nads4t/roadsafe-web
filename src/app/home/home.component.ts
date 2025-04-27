@@ -37,6 +37,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   private markers: L.Marker[] = [];
   todayCount: number = 0; // New variable for today’s count
   searchTerm: string = '';  // Variable for search term
+  selectedTab: string = 'all'; // Default tab is "All"
+
 
 
   constructor(
@@ -52,13 +54,27 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.initMap();
   }
 
-  filteredTableData() {
-    return this.tableData.filter(item => 
-      item.prediction.toLowerCase().includes(this.searchTerm.toLowerCase()) || 
-      item.address?.toLowerCase().includes(this.searchTerm.toLowerCase()) || 
-      item.confidence.toString().includes(this.searchTerm)
-    );
+  selectTab(tab: string): void {
+    this.selectedTab = tab;
   }
+
+
+  filteredTableData() {
+    return this.tableData.filter(item => {
+      const matchesSearchTerm = item.prediction.toLowerCase().includes(this.searchTerm.toLowerCase()) || 
+        item.address?.toLowerCase().includes(this.searchTerm.toLowerCase()) || 
+        item.confidence.toString().includes(this.searchTerm);
+      
+      // Filter based on the selected tab
+      if (this.selectedTab === 'high') {
+        return matchesSearchTerm && item.confidence >= 0.50; // High confidence (>= 0.50)
+      } else if (this.selectedTab === 'low') {
+        return matchesSearchTerm && item.confidence < 0.50; // Low confidence (< 0.50)
+      }
+      return matchesSearchTerm; // Show all if "All" is selected
+    });
+  }
+  
   
 
   currentSort = {

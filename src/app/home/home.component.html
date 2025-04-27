@@ -60,10 +60,11 @@
           View all detected road damages
         </p>    
         <div class="tabs">
-          <span class="tab">All </span>
-          <span class="tab">High Confidence </span>
-          <span class="tab">Low Confidence</span>
+          <span class="tab" (click)="selectTab('all')">All</span>
+          <span class="tab" (click)="selectTab('high')">High Confidence</span>
+          <span class="tab" (click)="selectTab('low')">Low Confidence</span>
         </div>
+        
           
         <div class="search-container">
           <input type="text" placeholder="Search logs..." class="search-bar" [(ngModel)]="searchTerm" />

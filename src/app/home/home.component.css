@@ -507,7 +507,7 @@ th.sortable:hover {
 .tab {
   cursor: pointer;
   padding: 5px 10px; /* Optional padding for the clickable text */
-  text-decoration: underline;
+  text-decoration: none; /* Remove underline by default */
 }
 
 .tab:hover {
@@ -515,5 +515,8 @@ th.sortable:hover {
 }
 
 .tab.active {
-  font-weight: bold; /* Optional: highlight the active tab */
+  font-weight: bold; /* Highlight the active tab */
+  color: blue; /* Change color of active tab */
+  text-decoration: underline; /* Add underline for active tab */
 }
+
