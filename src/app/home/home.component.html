@@ -1,18 +1,18 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
 <main class="main">
-    <div class="container">
-      <div class="square-container">
-        <div class="square1">
-          <div class="text-container">
-            <p style="font-size: 1.5rem; color: white;">
-              Last submitted damage was at <br>
-              <span class="ellipsis-address"><b>{{ latestAddress }}</b></span>
-            </p>
-            <p style="font-size: 1rem; color: white;">Report mo na agad para masolusyunan</p>
-          </div>
-          <div class="gauge-container">
-            <ngx-gauge 
+  <div class="container">
+    <div class="square-container">
+      <div class="square1">
+        <div class="text-container">
+          <p style="font-size: 1.5rem; color: white;">
+            Last submitted damage was at <br>
+            <span class="ellipsis-address"><b>{{ latestAddress }}</b></span>
+          </p>
+          <p style="font-size: 1rem; color: white;">Report mo na agad para masolusyunan</p>
+        </div>
+        <div class="gauge-container">
+          <ngx-gauge 
             [value]="latestConfidence" 
             [min]="0" 
             [max]="100" 
@@ -24,97 +24,93 @@
             [style.color]="'white'"
             [backgroundColor]="'#d1d5db'"
             [cap]="'round'">
-            </ngx-gauge>
+          </ngx-gauge>
+        </div>
+      </div>            
+      <div class="map_view" id="map"></div>
+    </div>
+    <div class="map_view-container">
+      <div class="square-row">
+        <div class="square2">
+          <div class="square-header">Total Users</div>
+          <div class="square-footer">
+            <span>{{ uniqueUserCount }}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path fill="#f48c44" d="M399 384.2C376.9 345.8 335.4 320 288 320l-64 0c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"/>
+            </svg>
           </div>
-        </div>            
-        <div class="map_view" id="map"></div>
-      </div>
-      <div class="map_view-container">
-        <div class="square-row">
-          <div class="square2">
-            <div class="square-header">Total Users</div>
-            <div class="square-footer">
-              <span>{{ uniqueUserCount }}</span>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#f48c44" d="M399 384.2C376.9 345.8 335.4 320 288 320l-64 0c-47.4 0-88.9 25.8-111 64.2c35.2 39.2 86.2 63.8 143 63.8s107.8-24.7 143-63.8zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256zm256 16a72 72 0 1 0 0-144 72 72 0 1 0 0 144z"/></svg>
-            </div>
+        </div>
+        <div class="square2">
+          <div class="square-header">Logged today</div>
+          <div class="square-footer">
+            <span>{{ todayCount }}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" height="12" width="12" viewBox="0 0 512 512">
+              <path fill="#f48c44" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm11.3-395.3l112 112c4.6 4.6 5.9 11.5 3.5 17.4s-8.3 9.9-14.8 9.9l-64 0 0 96c0 17.7-14.3 32-32 32l-32 0c-17.7 0-32-14.3-32-32l0-96-64 0c-6.5 0-12.3-3.9-14.8-9.9s-1.1-12.9 3.5-17.4l112-112c6.2-6.2 16.4-6.2 22.6 0z"/>
+            </svg>            
           </div>
+        </div>
+      </div>        
+      <div class="table_view">  
+        <div class="logs-header">
+          <h2 class="logs-title">Logs&nbsp;</h2>
+          <span class="logs-count">{{ getRowCount() }} total</span>
+          <button class="redirect-button" (click)="navigateToLogs()">&gt;</button>
+        </div>          
+        <p class="logs-description">
+          View all detected road damages
+        </p>          
+        <div class="search-container">
+          <input type="text" placeholder="Search logs..." class="search-bar" [(ngModel)]="searchTerm" />
+        </div>
         
-          <div class="square2">
-            <div class="square-header">Logged today</div>
-            <div class="square-footer">
-              <span>{{ todayCount }}</span>
-              <svg xmlns="http://www.w3.org/2000/svg" height="12" width="12" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#f48c44" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm11.3-395.3l112 112c4.6 4.6 5.9 11.5 3.5 17.4s-8.3 9.9-14.8 9.9l-64 0 0 96c0 17.7-14.3 32-32 32l-32 0c-17.7 0-32-14.3-32-32l0-96-64 0c-6.5 0-12.3-3.9-14.8-9.9s-1.1-12.9 3.5-17.4l112-112c6.2-6.2 16.4-6.2 22.6 0z"/></svg>            </div>
-          </div>
-        </div>        
-        <div class="table_view">  
-          <div class="logs-header">
-            <h2 class="logs-title">Logs&nbsp;</h2>
-            <span class="logs-count">{{ getRowCount() }} total</span>
-            <!-- Added button -->
-            <button class="redirect-button" (click)="navigateToLogs()">&gt;</button>
-          </div>          
-          <p class="logs-description">
-            View all detected road damages
-          </p>          
-          <div class="search-container">
-            <input type="text" placeholder="Search logs..." class="search-bar" />          
-          </div>
-          
-          <div class="logs-table-wrapper">
-            <table class="logs-table">
-              <thead>
-                <tr>
-                  <th>IMAGE</th>
-                    <!-- Confidence first -->
-                    <th (click)="sortTableBy('confidence')" class="sortable">
-                      Confidence
-                      <span class="sort-arrow" [class.visible]="currentSort.column === 'confidence'">
-                        {{ currentSort.column === 'confidence' ? (currentSort.direction === 'asc' ? '▲' : '▼') : '▲' }}
-                      </span>
-                    </th>
-              
-                    <!-- Date second -->
-                    <th (click)="sortTableBy('date')" class="sortable">
-                      Date
-                      <span class="sort-arrow" [class.visible]="currentSort.column === 'date'">
-                        {{ currentSort.column === 'date' ? (currentSort.direction === 'asc' ? '▲' : '▼') : '▲' }}
-                      </span>
-                    </th>
-              
-                    <!-- Location third -->
-                    <th (click)="sortTableBy('location')" class="sortable">
-                      Location
-                      <span class="sort-arrow" [class.visible]="currentSort.column === 'location'">
-                        {{ currentSort.column === 'location' ? (currentSort.direction === 'asc' ? '▲' : '▼') : '▲' }}
-                      </span>
-                    </th>
-              
-                    <!-- Prediction fourth -->
-                    <th (click)="sortTableBy('prediction')" class="sortable">
-                      Prediction
-                      <span class="sort-arrow" [class.visible]="currentSort.column === 'prediction'">
-                        {{ currentSort.column === 'prediction' ? (currentSort.direction === 'asc' ? '▲' : '▼') : '▲' }}
-                      </span>
-                    </th>
-                </tr>
-              </thead>              
-              <tbody>
-                <tr *ngFor="let item of tableData" (click)="showLocationOnMap(item)" class="clickable-row">
-                  <td><img [src]="item.image" alt="Item Image" class="image-small-rounded" /></td>
-                  <td>{{ item.confidence }}</td>
-                  <td>{{ item.readableDate | date:'medium' }}</td>
-                  <td>
-                    <div class="location-container">
-                      <span class="location-text">{{ item.address || 'Loading address...' }}</span>
-                      <span class="address-text">{{ formatLocation(item.location) }}</span>
-                    </div>
-                  </td>
-                  <td>{{ item.prediction }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div class="logs-table-wrapper">
+          <table class="logs-table">
+            <thead>
+              <tr>
+                <th>IMAGE</th>
+                <th (click)="sortTableBy('confidence')" class="sortable">
+                  Confidence
+                  <span class="sort-arrow" [class.visible]="currentSort.column === 'confidence'">
+                    {{ currentSort.column === 'confidence' ? (currentSort.direction === 'asc' ? '▲' : '▼') : '▲' }}
+                  </span>
+                </th>
+                <th (click)="sortTableBy('date')" class="sortable">
+                  Date
+                  <span class="sort-arrow" [class.visible]="currentSort.column === 'date'">
+                    {{ currentSort.column === 'date' ? (currentSort.direction === 'asc' ? '▲' : '▼') : '▲' }}
+                  </span>
+                </th>
+                <th (click)="sortTableBy('location')" class="sortable">
+                  Location
+                  <span class="sort-arrow" [class.visible]="currentSort.column === 'location'">
+                    {{ currentSort.column === 'location' ? (currentSort.direction === 'asc' ? '▲' : '▼') : '▲' }}
+                  </span>
+                </th>
+                <th (click)="sortTableBy('prediction')" class="sortable">
+                  Prediction
+                  <span class="sort-arrow" [class.visible]="currentSort.column === 'prediction'">
+                    {{ currentSort.column === 'prediction' ? (currentSort.direction === 'asc' ? '▲' : '▼') : '▲' }}
+                  </span>
+                </th>
+              </tr>
+            </thead>              
+            <tbody>
+              <tr *ngFor="let item of filteredTableData()" (click)="showLocationOnMap(item)" class="clickable-row">
+                <td><img [src]="item.image" alt="Item Image" class="image-small-rounded" /></td>
+                <td>{{ item.confidence }}</td>
+                <td>{{ item.readableDate | date:'medium' }}</td>
+                <td>
+                  <div class="location-container">
+                    <span class="location-text">{{ item.address || 'Loading address...' }}</span>
+                    <span class="address-text">{{ formatLocation(item.location) }}</span>
+                  </div>
+                </td>
+                <td>{{ item.prediction }}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
+  </div>
 </main>

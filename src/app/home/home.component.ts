@@ -36,6 +36,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   private map: L.Map | null = null;
   private markers: L.Marker[] = [];
   todayCount: number = 0; // New variable for today’s count
+  searchTerm: string = '';  // Variable for search term
+
 
   constructor(
     private firestoreService: FirestoreService, private router: Router) {}
@@ -49,6 +51,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.initMap();
   }
+
+  filteredTableData() {
+    return this.tableData.filter(item => 
+      item.prediction.toLowerCase().includes(this.searchTerm.toLowerCase()) || 
+      item.address?.toLowerCase().includes(this.searchTerm.toLowerCase()) || 
+      item.confidence.toString().includes(this.searchTerm)
+    );
+  }
+  
 
   currentSort = {
     column: '',
