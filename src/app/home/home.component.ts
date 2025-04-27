@@ -50,6 +50,51 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.initMap();
   }
 
+  currentSort = {
+    column: '',
+    direction: 'asc'
+  };
+  
+  sortTableBy(column: string): void {
+    if (this.currentSort.column === column) {
+      this.currentSort.direction = this.currentSort.direction === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.currentSort.column = column;
+      this.currentSort.direction = 'asc';
+    }
+  
+    const direction = this.currentSort.direction;
+  
+    this.tableData.sort((a, b) => {
+      let valueA: any;
+      let valueB: any;
+  
+      if (column === 'confidence') {
+        valueA = a.confidence;
+        valueB = b.confidence;
+      } else if (column === 'date') {
+        valueA = new Date(a.readableDate).getTime();
+        valueB = new Date(b.readableDate).getTime();
+      } else if (column === 'location') {
+        // SORT BY ADDRESS NOW
+        valueA = a.address?.toLowerCase() || '';
+        valueB = b.address?.toLowerCase() || '';
+      } else if (column === 'prediction') {
+        valueA = a.prediction?.toLowerCase() || '';
+        valueB = b.prediction?.toLowerCase() || '';
+      } else {
+        return 0;
+      }
+  
+      if (valueA < valueB) return direction === 'asc' ? -1 : 1;
+      if (valueA > valueB) return direction === 'asc' ? 1 : -1;
+      return 0;
+    });
+  
+    this.showAllMarkers(); // Optional
+  }
+  
+
   private loadUniqueUserCount(): void {
     this.firestoreService.getUniqueUserCount().subscribe({
       next: (count) => {

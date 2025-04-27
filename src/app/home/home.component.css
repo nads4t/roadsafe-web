@@ -465,3 +465,36 @@
   font-size: 12px; /* Adjust label size */
 }
 
+.sort-arrow {
+  display: inline-block;
+  width: 1em; /* Reserve space for arrow */
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.sort-arrow.visible {
+  opacity: 1;
+}
+
+th.sortable {
+  cursor: pointer;
+  position: relative;
+  padding-right: 20px; /* Make room for the arrow */
+  transition: background-color 0.2s ease;
+}
+
+th.sortable:hover {
+  background-color: rgba(0, 0, 0, 0.05); /* Light hover effect */
+}
+
+.sort-arrow {
+  position: absolute;
+  right: 8px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.sort-arrow.visible {
+  opacity: 1;
+}

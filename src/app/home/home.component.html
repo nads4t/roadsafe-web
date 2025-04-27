@@ -26,7 +26,7 @@
             [cap]="'round'">
             </ngx-gauge>
           </div>
-        </div>             
+        </div>            
         <div class="map_view" id="map"></div>
       </div>
       <div class="map_view-container">
@@ -57,13 +57,7 @@
             View all detected road damages
           </p>          
           <div class="search-container">
-            <input type="text" placeholder="Search logs..." class="search-bar" />
-            <select class="log-filter" [(ngModel)]="selectedSort" (change)="sortTableData()">
-              <option value="" disabled selected>Sort by</option>
-              <option value="confidence">Confidence</option>
-              <option value="date">Date</option>
-              <option value="prediction">Prediction</option>
-            </select>            
+            <input type="text" placeholder="Search logs..." class="search-bar" />          
           </div>
           
           <div class="logs-table-wrapper">
@@ -71,12 +65,39 @@
               <thead>
                 <tr>
                   <th>IMAGE</th>
-                  <th>CONFIDENCE</th>
-                  <th>DATE</th>
-                  <th>LOCATION</th>
-                  <th>PREDICTION</th>
+                    <!-- Confidence first -->
+                    <th (click)="sortTableBy('confidence')" class="sortable">
+                      Confidence
+                      <span class="sort-arrow" [class.visible]="currentSort.column === 'confidence'">
+                        {{ currentSort.column === 'confidence' ? (currentSort.direction === 'asc' ? '▲' : '▼') : '▲' }}
+                      </span>
+                    </th>
+              
+                    <!-- Date second -->
+                    <th (click)="sortTableBy('date')" class="sortable">
+                      Date
+                      <span class="sort-arrow" [class.visible]="currentSort.column === 'date'">
+                        {{ currentSort.column === 'date' ? (currentSort.direction === 'asc' ? '▲' : '▼') : '▲' }}
+                      </span>
+                    </th>
+              
+                    <!-- Location third -->
+                    <th (click)="sortTableBy('location')" class="sortable">
+                      Location
+                      <span class="sort-arrow" [class.visible]="currentSort.column === 'location'">
+                        {{ currentSort.column === 'location' ? (currentSort.direction === 'asc' ? '▲' : '▼') : '▲' }}
+                      </span>
+                    </th>
+              
+                    <!-- Prediction fourth -->
+                    <th (click)="sortTableBy('prediction')" class="sortable">
+                      Prediction
+                      <span class="sort-arrow" [class.visible]="currentSort.column === 'prediction'">
+                        {{ currentSort.column === 'prediction' ? (currentSort.direction === 'asc' ? '▲' : '▼') : '▲' }}
+                      </span>
+                    </th>
                 </tr>
-              </thead>
+              </thead>              
               <tbody>
                 <tr *ngFor="let item of tableData" (click)="showLocationOnMap(item)" class="clickable-row">
                   <td><img [src]="item.image" alt="Item Image" class="image-small-rounded" /></td>
