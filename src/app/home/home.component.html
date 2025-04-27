@@ -58,7 +58,13 @@
         </div>          
         <p class="logs-description">
           View all detected road damages
-        </p>          
+        </p>    
+        <div class="tabs">
+          <span class="tab">All </span>
+          <span class="tab">High Confidence </span>
+          <span class="tab">Low Confidence</span>
+        </div>
+          
         <div class="search-container">
           <input type="text" placeholder="Search logs..." class="search-bar" [(ngModel)]="searchTerm" />
         </div>
@@ -111,6 +117,7 @@
           </table>
         </div>
       </div>
+
     </div>
   </div>
 </main>

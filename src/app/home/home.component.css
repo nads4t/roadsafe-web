@@ -498,3 +498,22 @@ th.sortable:hover {
 .sort-arrow.visible {
   opacity: 1;
 }
+
+.tabs {
+  display: flex;
+  gap: 20px; /* Adjust the space between tabs */
+}
+
+.tab {
+  cursor: pointer;
+  padding: 5px 10px; /* Optional padding for the clickable text */
+  text-decoration: underline;
+}
+
+.tab:hover {
+  color: blue; /* Optional: Add hover effect */
+}
+
+.tab.active {
+  font-weight: bold; /* Optional: highlight the active tab */
+}
