@@ -46,7 +46,6 @@ html, body {
   overflow: hidden;
 }
 
-
 .card-left h2 {
   margin-bottom: 0.5rem;
 }
@@ -134,10 +133,22 @@ html, body {
 /* Active indicator */
 .indicator.active {
   background-color: #ff7f00;
-} 
+}
 
+/* 7. Error container */
+.error-container {
+  opacity: 0; /* Initially hidden */
+  height: 2rem; /* Fixed height for error container */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.3s ease; /* Smooth fade-in/fade-out */
+}
 
-/* 7. Error text */
+.error-container.visible {
+  opacity: 1; /* Make it visible when error occurs */
+}
+
 .error-text {
   color: red;
   font-size: 0.9rem;

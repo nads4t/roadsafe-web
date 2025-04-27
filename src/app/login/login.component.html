@@ -29,8 +29,10 @@
         <button type="submit" class="submit-button">Submit →</button>
       </form>
 
-      <!-- Show error message if exists -->
-      <p *ngIf="errorMessage" class="error-text">{{ errorMessage }}</p>
+      <!-- Error message container always visible but toggle visibility -->
+      <div class="error-container" [ngClass]="{ 'visible': errorMessage }">
+        <p class="error-text">{{ errorMessage }}</p>
+      </div>
     </div>
 
     <div class="card-right">
