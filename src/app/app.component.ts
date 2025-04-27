@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';  // <-- This is fine
+import { CommonModule } from '@angular/common'; // <-- This is fine
 import { Auth } from '@angular/fire/auth';
 import { authState } from 'rxfire/auth';
 import { inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule],
+  imports: [RouterOutlet, CommonModule], // <-- Keep RouterOutlet here
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

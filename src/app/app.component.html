@@ -1,16 +1,7 @@
-<!-- app.component.html -->
+<nav *ngIf="loggedIn" class="top-nav">
+  <div class="nav-left">Dashboard</div>
+</nav>
 
-<!-- Show the dashboard only if the user is logged in -->
-<div *ngIf="loggedIn">
-  <nav class="top-nav">
-    <div class="nav-left">Dashboard</div>
-    <div class="nav-right">Settings</div>
-  </nav>
-
-  <main class="content-wrapper">
-    <router-outlet></router-outlet> <!-- Content will change based on route -->
-  </main>
-</div>
-
-<!-- Router-outlet to show content (like login) when not logged in -->
-<!-- <router-outlet></router-outlet> -->
+<main class="content-wrapper">
+  <router-outlet></router-outlet> <!-- Only one router outlet -->
+</main>
