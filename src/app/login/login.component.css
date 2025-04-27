@@ -29,7 +29,7 @@ html, body {
 .card {
   background: white;
   width: 900px;
-  height: 500px;
+  height: 550px;
   display: flex;
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -46,6 +46,26 @@ html, body {
   overflow: hidden;
 }
 
+/* Logo and text at the top */
+.logo-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem; /* space between logo and form */
+}
+
+.logo {
+  width: 40px; /* Adjust logo size */
+  height: auto;
+  margin-right: 10px; /* Space between logo and text */
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 5. Form */
 .card-left h2 {
   margin-bottom: 0.5rem;
 }
@@ -56,7 +76,7 @@ html, body {
   color: #555;
 }
 
-/* 5. Form */
+/* 6. Form */
 .form {
   display: flex;
   flex-direction: column;
@@ -85,7 +105,7 @@ html, body {
   background-color: #e67000;
 }
 
-/* 6. Image side */
+/* 7. Image side */
 .card-right {
   flex: 1.2;
   display: flex;
@@ -135,7 +155,7 @@ html, body {
   background-color: #ff7f00;
 }
 
-/* 7. Error container */
+/* 8. Error container */
 .error-container {
   opacity: 0; /* Initially hidden */
   height: 2rem; /* Fixed height for error container */
@@ -155,4 +175,3 @@ html, body {
   text-align: center;
   margin-top: 1rem;
 }
-
