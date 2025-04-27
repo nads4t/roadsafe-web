@@ -1,58 +1,110 @@
+/* 1. Reset basic stuff */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* lock it */
+  font-family: Arial, sans-serif;
+}
+
+/* 2. Full screen background */
 .background {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: orange;
-    margin: 0;
-  }
-  
-  .card {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    width: 320px;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Center content inside the card */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .form {
-    width: 100%; /* Make form div full width */
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    align-items: center;
-  }
-  
-  .input-field {
-    padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 100%;
-    font-size: 1rem;
-  }
-  
-  .submit-button {
-    padding: 0.75rem;
-    border: none;
-    background-color: #ff7f00;
-    color: white;
-    font-size: 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%; /* Same width as inputs */
-  }
-  
-  .submit-button:hover {
-    background-color: #e67000;
-  }
-  
-  .error-text {
-    color: red;
-    font-size: 0.9rem;
-    text-align: center;
-    margin-top: 1rem;
-  }
-  
+  position: fixed; /* critical */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: orange;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 3. Card */
+.card {
+  background: white;
+  width: 800px;
+  height: 500px;
+  display: flex;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+/* 4. Form side */
+.card-left {
+  flex: 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.card-left h2 {
+  margin-bottom: 0.5rem;
+}
+
+.sub-header {
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  color: #555;
+}
+
+/* 5. Form */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.input-field {
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.submit-button {
+  padding: 0.75rem;
+  background-color: #ff7f00;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  margin-top: 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.submit-button:hover {
+  background-color: #e67000;
+}
+
+/* 6. Image side */
+.card-right {
+  flex: 1;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.login-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+/* 7. Error text */
+.error-text {
+  color: red;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 1rem;
+}
