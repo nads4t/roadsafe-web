@@ -1,41 +1,69 @@
 import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';  // <-- This is fine
-import { CommonModule } from '@angular/common'; // <-- This is fine
+import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { Auth } from '@angular/fire/auth';
 import { authState } from 'rxfire/auth';
 import { inject } from '@angular/core';
-import { signOut } from 'firebase/auth'; // Import Firebase signOut method
+import { signOut } from 'firebase/auth';
+import { filter } from 'rxjs/operators'; // ✅ For filtering NavigationEnd
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, CommonModule], // <-- Keep RouterOutlet here
+  standalone: true,
+  imports: [RouterOutlet, CommonModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'roadsafe-website';
   loggedIn = false;
+  breadcrumb = 'Home';
+  showHomeLink = false; // ✅ Keep it here
+
   private auth = inject(Auth);
   private router = inject(Router);
 
   constructor() {
-    // Listen to auth state changes and update loggedIn status
+    // Listen to auth state
     authState(this.auth).subscribe(user => {
-      this.loggedIn = !!user;  // Set loggedIn to true if user exists
+      this.loggedIn = !!user;
       if (!user && this.router.url !== '/login') {
-        // If user is not logged in and not on login route, redirect to login
         this.router.navigate(['/login']);
       }
     });
+
+    // Listen to router NavigationEnd events
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.updateBreadcrumb();
+      });
   }
 
-  // Method to log out the user
+  // Update breadcrumb based on URL
+  updateBreadcrumb() {
+    const currentUrl = this.router.url;
+    if (currentUrl.startsWith('/logs')) {
+      this.breadcrumb = 'Logs';
+      this.showHomeLink = true;
+    } else {
+      this.breadcrumb = 'Home';
+      this.showHomeLink = false;
+    }
+  }
+
+  // Navigate to Home
+  goHome() {
+    this.router.navigateByUrl('/');
+  }
+
+  // Logout the user
   logout() {
     signOut(this.auth).then(() => {
-      this.loggedIn = false; // Update login status
-      this.router.navigate(['/login']); // Redirect to login page
+      this.loggedIn = false;
+      this.router.navigate(['/login']);
     }).catch((error) => {
-      console.error('Logout error', error); // Handle logout errors
+      console.error('Logout error', error);
     });
   }
 }

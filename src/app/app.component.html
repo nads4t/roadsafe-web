@@ -1,8 +1,16 @@
 <nav *ngIf="loggedIn" class="top-nav">
-  <div class="nav-left">Dashboard</div>
+  <div class="nav-left">
+    <ng-container *ngIf="showHomeLink; else justHome">
+      <a (click)="goHome()" class="home-link">Home</a> <span class="arrow"> → </span> <span>{{ breadcrumb }}</span>
+    </ng-container>
+    <ng-template #justHome>
+      <span>Home</span>
+    </ng-template>
+  </div>
+
   <div class="nav-right logout" (click)="logout()">Log Out</div>
 </nav>
 
 <main class="content-wrapper">
-  <router-outlet></router-outlet> <!-- Only one router outlet -->
+  <router-outlet></router-outlet>
 </main>

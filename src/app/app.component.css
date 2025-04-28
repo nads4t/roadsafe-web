@@ -41,3 +41,16 @@
   .logout:hover {
     color: red; /* Darker blue color on hover */
   }
+
+  .home-link {
+    color: #007bff; /* Blue color */
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+    cursor: pointer; 
+  }
+  
+  .home-link:hover {
+    color: #0056b3; /* Darker blue on hover */
+    text-decoration: underline;
+  }
