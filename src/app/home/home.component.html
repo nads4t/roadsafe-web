@@ -9,7 +9,7 @@
             Last submitted damage was at <br>
             <span class="ellipsis-address"><b>{{ latestAddress }}</b></span>
           </p>
-          <p style="font-size: 1rem; color: white;">Report mo na agad para masolusyunan</p>
+          <p style="font-size: 1rem; color: #dbdbdb;">Kindly report to concerned authorities</p>
         </div>
         <div class="gauge-container">
           <ngx-gauge 
@@ -26,7 +26,11 @@
             [cap]="'round'">
           </ngx-gauge>
         </div>
-      </div>            
+        <div class="image-container">
+          <img class="image-styled" [src]="getFirstImage()" alt="Image">
+        </div>
+      </div>
+
       <div class="map_view" id="map"></div>
     </div>
     <div class="map_view-container">

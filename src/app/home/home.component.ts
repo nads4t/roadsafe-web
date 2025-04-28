@@ -58,6 +58,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.selectedTab = tab;
   }
 
+  getFirstImage(): string {
+    const firstItem = this.filteredTableData()[0];
+    return firstItem ? firstItem.image : 'assets/default-image.jpg'; // Fallback image if no data
+  }
+
 
   filteredTableData() {
     return this.tableData.filter(item => {

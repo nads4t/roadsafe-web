@@ -38,8 +38,8 @@
       border-radius: 10px;
       overflow: hidden;
       display: flex;
-      justify-content: space-between; /* Distribute space between text and gauge */
-      align-items: center; /* Vertically center the content */
+      justify-content: space-between; /* Ensures space between text and gauge/image */
+      align-items: center; /* Vertically centers content */
       height: 10rem;
       padding: 1rem;
     }
@@ -53,7 +53,37 @@
 
     .gauge-container {
       display: flex;
-      justify-content: flex-end; /* Align gauge to the right */
+      justify-content: flex-end; /* Align the gauge to the right */
+      align-items: center; /* Vertically align the gauge */
+      margin-right: 8rem; /* Space between the gauge and the image */
+    }
+
+    .image-container {
+      position: relative;  /* Set parent to relative to position child absolutely */
+      width: 100%;  /* Ensure the container takes up full width */
+      height: 100%;  /* Adjust based on your desired height */
+    }
+    
+    .image-styled {
+      position: absolute;  /* Allow the image to be positioned independently of other content */
+      right: 0;  /* Position the image at the very right */
+      top: -13%;  /* Center the image vertically */
+      transform: translateY(-50%);  /* Fine-tune vertical centering */
+      transform: translateX(20%);  /* Fine-tune vertical centering */
+      width: 400px;
+      height: 300px;
+      object-fit: cover;  /* Ensures the image fills the container proportionally */
+      -webkit-mask-image: -webkit-gradient(linear, right top, left top, from(rgba(0, 0, 0, 1)), to(rgba(0, 0, 0, 0)));
+      mask-image: linear-gradient(to left, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+    }
+    
+    
+
+    .image-small-rounded {
+      width: 40px; /* Adjust size as needed */
+      height: 40px; /* Ensure the height and width are the same for a perfect circle */
+      border-radius: 50%; /* Makes the image rounded */
+      object-fit: cover; /* Ensures the image covers the area without distortion */
     }
 
     .latest-address {
