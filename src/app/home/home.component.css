@@ -70,7 +70,7 @@
       top: -13%;  /* Center the image vertically */
       transform: translateY(-50%);  /* Fine-tune vertical centering */
       transform: translateX(20%);  /* Fine-tune vertical centering */
-      width: 400px;
+      width: 450px;
       height: 300px;
       object-fit: cover;  /* Ensures the image fills the container proportionally */
       -webkit-mask-image: -webkit-gradient(linear, right top, left top, from(rgba(0, 0, 0, 1)), to(rgba(0, 0, 0, 0)));
