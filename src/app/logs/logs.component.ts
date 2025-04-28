@@ -29,6 +29,9 @@ export class LogsComponent implements OnInit {
   selectedSort: string = '';
   deleteMode: boolean = false;
   showConfirmDeletion: boolean = false;
+  showDeletionModal: boolean = false;
+  rowsToDeleteCount: number = 0;
+  
 
   constructor(private firestoreService: FirestoreService) {}
 
@@ -119,18 +122,28 @@ export class LogsComponent implements OnInit {
   }
 
   // Confirm deletion of selected rows
-  confirmDeletion(): void {
+  openDeletionModal(): void {
+    this.rowsToDeleteCount = this.tableData.filter(item => item.selected).length;
+    this.showDeletionModal = true;
+  }
+  
+  // If user confirms inside modal
+  confirmDeletionInModal(): void {
     const selectedLogs = this.tableData.filter(item => item.selected);
-
-    // Call the deleteLogs method from the Firestore service to delete from Firestore
+  
     this.firestoreService.deleteLogs(selectedLogs).subscribe({
       next: () => {
-        // Remove the deleted items from the local table data
         this.tableData = this.tableData.filter(item => !item.selected);
-        this.cancelDeleteMode(); // Exit delete mode
+        this.cancelDeleteMode();
+        this.showDeletionModal = false;
       },
       error: (err) => console.error('Error deleting logs:', err)
     });
+  }
+  
+  // If user cancels inside modal
+  cancelDeletionInModal(): void {
+    this.showDeletionModal = false;
   }
 
   // Deselect all rows
@@ -138,4 +151,8 @@ export class LogsComponent implements OnInit {
     this.tableData.forEach(item => item.selected = false);
     this.showConfirmDeletion = false;
   }
+
+
+
+
 }

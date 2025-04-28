@@ -181,7 +181,9 @@ button.cancel-delete-btn:hover {
 }
 
 /* Delete Button */
-button.delete-button {
+button.delete-button,
+button.confirm-deletion-button,
+button.cancel-button {
     background-color: #f48c44;
     color: white;
     padding: 0.75rem 1.25rem;
@@ -191,6 +193,8 @@ button.delete-button {
     border: none;
     transition: background-color 0.3s ease;
 }
+
+
 
 button.delete-button:hover {
     background-color: #e67e22;
@@ -246,3 +250,71 @@ button.delete-button:hover {
 .delete-mode-active .logs-table td.selected {
     background-color: #f7e6e5;
 }
+
+/* Floating Modal Styles */
+.floating-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* move left AND move up by 50% */
+    z-index: 2000;
+  }
+  
+  
+  .floating-modal-content {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 2rem;
+    min-width: 300px;
+    max-width: 90%;
+    text-align: center;
+    animation: popIn 0.3s ease;
+  }
+  
+  .modal-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .modal-body {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    color: #555;
+  }
+  
+  .modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .modal-confirm {
+    background: #dc2626; /* red-600 */
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .modal-cancel {
+    background: #6b7280; /* gray-500 */
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  @keyframes popIn {
+    0% {
+      opacity: 0;
+      transform: translateX(-50%) scale(0.8);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+  }
+  

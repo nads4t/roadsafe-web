@@ -1,57 +1,73 @@
 <div class="table_view">  
-    <div class="logs-header">
-      <h2 class="logs-title">Logs</h2>
-      <span class="logs-count">{{ getRowCount() }} total</span>
-    </div>
-    <p class="logs-description">
-      View all detected road damages
-    </p>          
-    <div class="search-container">
-      <input type="text" placeholder="Search logs..." class="search-bar" />
-      <select class="log-filter" [(ngModel)]="selectedSort" (change)="sortTableData()">
-        <option value="" disabled selected>Sort by</option>
-        <option value="confidence">Confidence</option>
-        <option value="date">Date</option>
-        <option value="prediction">Prediction</option>
-      </select>            
-      <button *ngIf="!deleteMode" (click)="enableDeleteMode()" class="delete-button">Delete</button>
-      <button *ngIf="deleteMode" (click)="cancelDeleteMode()" class="cancel-button">Cancel</button>
-    </div>
-  
-    <div class="logs-table-wrapper">
-      <table class="logs-table">
-        <thead>
-          <tr>
-            <th>
-              <input *ngIf="deleteMode" type="checkbox" (change)="selectAllRows($event)" />
-            </th>
-            <th>IMAGE</th>
-            <th>CONFIDENCE</th>
-            <th>DATE</th>
-            <th>LOCATION</th>
-            <th>PREDICTION</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of tableData; let i = index" class="clickable-row">
-            <td>
-              <input *ngIf="deleteMode" type="checkbox" [(ngModel)]="item.selected" (change)="checkSelectedRows()" />
-            </td>
-            <td><img [src]="item.image" alt="Item Image" class="image-small-rounded" /></td>
-            <td>{{ item.confidence }}</td>
-            <td>{{ item.readableDate | date:'medium' }}</td>
-            <td>
-              <div class="location-container">
-                <span class="location-text">{{ item.address || 'Loading address...' }}</span>
-                <span class="address-text">{{ formatLocation(item.location) }}</span>
-              </div>
-            </td>
-            <td>{{ item.prediction }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  
-    <button *ngIf="showConfirmDeletion" class="confirm-deletion-button" (click)="confirmDeletion()">Confirm Deletion</button>
+  <div class="logs-header">
+    <h2 class="logs-title">Logs</h2>
+    <span class="logs-count">{{ getRowCount() }} total</span>
   </div>
   
+  <p class="logs-description">
+    View all detected road damages
+  </p>          
+
+  <div class="search-container">
+    <input type="text" placeholder="Search logs..." class="search-bar" />
+    <select class="log-filter" [(ngModel)]="selectedSort" (change)="sortTableData()">
+      <option value="" disabled selected>Sort by</option>
+      <option value="confidence">Confidence</option>
+      <option value="date">Date</option>
+      <option value="prediction">Prediction</option>
+    </select>            
+    <button *ngIf="!deleteMode" (click)="enableDeleteMode()" class="delete-button">Delete</button>
+    <button *ngIf="deleteMode" (click)="cancelDeleteMode()" class="cancel-button">Cancel</button>
+  </div>
+
+  <div class="logs-table-wrapper">
+    <table class="logs-table">
+      <thead>
+        <tr>
+          <th>
+            <input *ngIf="deleteMode" type="checkbox" (change)="selectAllRows($event)" />
+          </th>
+          <th>IMAGE</th>
+          <th>CONFIDENCE</th>
+          <th>DATE</th>
+          <th>LOCATION</th>
+          <th>PREDICTION</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of tableData; let i = index" class="clickable-row">
+          <td>
+            <input *ngIf="deleteMode" type="checkbox" [(ngModel)]="item.selected" (change)="checkSelectedRows()" />
+          </td>
+          <td><img [src]="item.image" alt="Item Image" class="image-small-rounded" /></td>
+          <td>{{ item.confidence }}</td>
+          <td>{{ item.readableDate | date:'medium' }}</td>
+          <td>
+            <div class="location-container">
+              <span class="location-text">{{ item.address || 'Loading address...' }}</span>
+              <span class="address-text">{{ formatLocation(item.location) }}</span>
+            </div>
+          </td>
+          <td>{{ item.prediction }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button *ngIf="showConfirmDeletion" class="confirm-deletion-button" (click)="openDeletionModal()">Confirm Deletion</button>
+</div>
+
+<!-- MODAL STARTS HERE -->
+<div *ngIf="showDeletionModal" class="floating-modal">
+  <div class="floating-modal-content">
+    <h3 class="modal-title">Confirm Deletion</h3>
+    <p class="modal-body">
+      You are about to delete {{ rowsToDeleteCount }} {{ rowsToDeleteCount === 1 ? 'log' : 'logs' }}. Proceed?
+    </p>
+    <div class="modal-buttons">
+      <button class="modal-confirm" (click)="confirmDeletionInModal()">Yes, Delete</button>
+      <button class="modal-cancel" (click)="cancelDeletionInModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+<!-- MODAL ENDS HERE -->
