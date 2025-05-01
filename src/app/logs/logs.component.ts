@@ -26,12 +26,19 @@ interface TableDataItem {
 })
 export class LogsComponent implements OnInit {
   tableData: TableDataItem[] = [];
+  filteredTableData: TableDataItem[] = []; // New array for filtered data
   selectedSort: string = '';
   deleteMode: boolean = false;
   showConfirmDeletion: boolean = false;
   showDeletionModal: boolean = false;
   rowsToDeleteCount: number = 0;
-  
+  searchTerm: string = ''; // Search term to filter logs
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+  currentSort = {
+    column: '',
+    direction: 'asc'
+  };
 
   constructor(private firestoreService: FirestoreService) {}
 
@@ -43,7 +50,15 @@ export class LogsComponent implements OnInit {
     this.firestoreService.getTableData().subscribe({
       next: (data: any[]) => {
         this.tableData = data;
+        this.filteredTableData = this.tableData; // Initially, set the filtered data to the full table data
         this.sortTableData();
+        this.applySearch(); // Apply any search term on data loading
+
+        this.tableData.forEach(item => {
+          if (item.confidence) {
+            item.confidence = Math.round(item.confidence * 100) / 100; // Rounds to two decimal places
+          }
+        });
 
         // Fetch addresses for each item
         for (const item of this.tableData) {
@@ -66,6 +81,21 @@ export class LogsComponent implements OnInit {
     });
   }
 
+  // Apply search filter on tableData
+  applySearch(): void {
+    if (this.searchTerm) {
+      this.filteredTableData = this.tableData.filter(item =>
+        item.confidence.toString().includes(this.searchTerm) ||
+        item.prediction.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        (item.address && item.address.toLowerCase().includes(this.searchTerm.toLowerCase()))
+      );
+    } else {
+      this.filteredTableData = this.tableData; // If search is cleared, show all data
+    }
+    this.currentPage = 1; // Reset to the first page after search
+  }
+
+  // Sort the table data based on selected column
   sortTableData(): void {
     switch (this.selectedSort) {
       case 'confidence':
@@ -82,18 +112,15 @@ export class LogsComponent implements OnInit {
     }
   }
 
+  // Get row count
   getRowCount(): number {
     return this.tableData.length;
   }
 
+  // Format location as a string
   formatLocation(location: { latitude: number, longitude: number } | undefined): string {
     if (!location) return 'No location';
     return `${location.latitude.toFixed(4)}, ${location.longitude.toFixed(4)}`;
-  }
-
-  showLocationOnMap(item: TableDataItem): void {
-    console.log('Clicked item location:', item.location);
-    // You can later implement showing the map or navigating to another component
   }
 
   // Enable delete mode, which shows checkboxes
@@ -126,11 +153,11 @@ export class LogsComponent implements OnInit {
     this.rowsToDeleteCount = this.tableData.filter(item => item.selected).length;
     this.showDeletionModal = true;
   }
-  
+
   // If user confirms inside modal
   confirmDeletionInModal(): void {
     const selectedLogs = this.tableData.filter(item => item.selected);
-  
+
     this.firestoreService.deleteLogs(selectedLogs).subscribe({
       next: () => {
         this.tableData = this.tableData.filter(item => !item.selected);
@@ -140,7 +167,7 @@ export class LogsComponent implements OnInit {
       error: (err) => console.error('Error deleting logs:', err)
     });
   }
-  
+
   // If user cancels inside modal
   cancelDeletionInModal(): void {
     this.showDeletionModal = false;
@@ -152,11 +179,7 @@ export class LogsComponent implements OnInit {
     this.showConfirmDeletion = false;
   }
 
-  currentSort = {
-    column: '',
-    direction: 'asc'
-  };
-
+  // Sort the table by a specific column
   sortTableBy(column: string): void {
     if (this.currentSort.column === column) {
       this.currentSort.direction = this.currentSort.direction === 'asc' ? 'desc' : 'asc';
@@ -164,13 +187,13 @@ export class LogsComponent implements OnInit {
       this.currentSort.column = column;
       this.currentSort.direction = 'asc';
     }
-  
+
     const direction = this.currentSort.direction;
-  
+
     this.tableData.sort((a, b) => {
       let valueA: any;
       let valueB: any;
-  
+
       if (column === 'confidence') {
         valueA = a.confidence;
         valueB = b.confidence;
@@ -187,31 +210,33 @@ export class LogsComponent implements OnInit {
       } else {
         return 0;
       }
-  
+
       if (valueA < valueB) return direction === 'asc' ? -1 : 1;
       if (valueA > valueB) return direction === 'asc' ? 1 : -1;
       return 0;
     });
-  
   }
 
-  currentPage: number = 1;
-  itemsPerPage: number = 10;
-  
+  // Get paginated data based on the filtered data
   getPaginatedData(): TableDataItem[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    return this.tableData.slice(startIndex, startIndex + this.itemsPerPage);
+    return this.filteredTableData.slice(startIndex, startIndex + this.itemsPerPage);
   }
-  
+
+  // Get total number of pages based on filtered data
   getTotalPages(): number {
-    return Math.ceil(this.tableData.length / this.itemsPerPage);
+    return Math.ceil(this.filteredTableData.length / this.itemsPerPage);
   }
-  
+
+  // Handle page change
   changePage(page: number): void {
     if (page >= 1 && page <= this.getTotalPages()) {
       this.currentPage = page;
     }
   }
-  
 
+  // Search input change handler
+  onSearchChange(): void {
+    this.applySearch();
+  }
 }
