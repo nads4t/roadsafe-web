@@ -4,15 +4,29 @@
     <span class="logs-count">{{ getRowCount() }} total</span>
   </div>
   
-  <p class="logs-description">
-    View all detected road damages
-  </p>          
+  <p class="logs-description">View all detected road damages</p>          
 
   <div class="search-container">
     <input type="text" placeholder="Search logs..." class="search-bar" />
-             
-    <button *ngIf="!deleteMode" (click)="enableDeleteMode()" class="delete-button">Delete</button>
-    <button *ngIf="deleteMode" (click)="cancelDeleteMode()" class="cancel-button">Cancel</button>
+
+    <div class="actions-container">
+      <button *ngIf="!deleteMode" (click)="enableDeleteMode()" class="delete-button">Delete</button>
+      <button *ngIf="deleteMode" (click)="cancelDeleteMode()" class="cancel-button">Cancel</button>
+
+      <div class="pagination-controls">
+        <button class="nav-button" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1"><</button>
+
+        <ng-container *ngFor="let page of [].constructor(getTotalPages()); let pageNum = index">
+          <button 
+            (click)="changePage(pageNum + 1)" 
+            [class.active]="currentPage === (pageNum + 1)">
+            {{ pageNum + 1 }}
+          </button>
+        </ng-container>
+
+        <button class="nav-button" (click)="changePage(currentPage + 1)" [disabled]="currentPage === getTotalPages()">></button>
+      </div>
+    </div>
   </div>
 
   <div class="logs-table-wrapper">
@@ -48,7 +62,7 @@
         </tr>
       </thead> 
       <tbody>
-        <tr *ngFor="let item of tableData; let i = index" class="clickable-row">
+        <tr *ngFor="let item of getPaginatedData(); let i = index" class="clickable-row">
           <td>
             <input *ngIf="deleteMode" type="checkbox" [(ngModel)]="item.selected" (change)="checkSelectedRows()" />
           </td>
@@ -70,7 +84,7 @@
   <button *ngIf="showConfirmDeletion" class="confirm-deletion-button" (click)="openDeletionModal()">Confirm Deletion</button>
 </div>
 
-<!-- MODAL STARTS HERE -->
+<!-- MODAL -->
 <div *ngIf="showDeletionModal" class="floating-modal">
   <div class="floating-modal-content">
     <h3 class="modal-title">Confirm Deletion</h3>
@@ -83,4 +97,3 @@
     </div>
   </div>
 </div>
-<!-- MODAL ENDS HERE -->

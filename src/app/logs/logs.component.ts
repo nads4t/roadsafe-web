@@ -195,4 +195,23 @@ export class LogsComponent implements OnInit {
   
   }
 
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+  
+  getPaginatedData(): TableDataItem[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.tableData.slice(startIndex, startIndex + this.itemsPerPage);
+  }
+  
+  getTotalPages(): number {
+    return Math.ceil(this.tableData.length / this.itemsPerPage);
+  }
+  
+  changePage(page: number): void {
+    if (page >= 1 && page <= this.getTotalPages()) {
+      this.currentPage = page;
+    }
+  }
+  
+
 }

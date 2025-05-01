@@ -49,9 +49,65 @@ html, body {
 /* Search Container */
 .search-container {
     display: flex;
-    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: center;
+    gap: 1rem;
     margin-bottom: 1rem;
+}
+
+/* Action buttons + pagination together */
+.actions-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+}
+
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.pagination-controls button {
+    background-color: transparent; /* No background */
+    border: white;
+    padding: 0.5rem 0.65rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+}
+
+.pagination-controls button:hover {
+    background-color: #ddd;
+}
+
+.pagination-controls button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+
+
+/* Active page highlight */
+.pagination-controls button.active {
+    background-color: #f48c44;
+    color: white;
+    font-weight: bold;
+    border-color: #f48c44;
+}
+
+.pagination-controls .nav-button {
+    background-color: #FDF6EB;
+    color: rgb(139, 139, 139);
+    font-weight: bold;
+    border-color: #f48c44;
+}
+
+.pagination-controls .nav-button:hover {
+    background-color: #e67e22;
 }
 
 .search-bar {
