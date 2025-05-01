@@ -125,14 +125,15 @@
     <div class="details-section">
       <div class="details-left">
         <!-- Display the address instead of the location object -->
-        <p>{{ selectedRowData?.address || 'Address not available' }}</p>
-        <p>{{ selectedRowData?.readableDate | date: 'medium' }}</p>
+        <p style="padding-top: 0."><b>{{ selectedRowData?.address || 'Address not available' }}</b></p>
+        <p style="margin: 0; color: gray">{{ selectedRowData?.readableDate | date: 'medium' }}</p>
       </div>
       
       <div class="details-right">
-        <p>{{ selectedRowData?.prediction }}</p>
-        <p>{{ selectedRowData?.confidence }}</p>
-      </div>
+        <p style="display: inline-block; background-color: orange; padding: 0.1rem 1rem; border-radius: 5000px; color: white;">
+          {{ selectedRowData?.prediction }}</p>
+          <p style="margin: 0; color: gray">{{ selectedRowData?.confidence * 100 | number:'1.0-0' }}% Confidence</p>
+        </div>
     </div>
     <!-- Close Button -->
     <button class="details-modal-confirm" (click)="closeRowModal()">Close</button>

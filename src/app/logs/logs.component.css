@@ -144,17 +144,57 @@ html, body {
 /* Table Styles */
 .logs-table {
     width: 100%;
+    table-layout: fixed; /* Ensures fixed column widths */
     border-collapse: collapse;
 }
 
 .logs-table th,
 .logs-table td {
+    width: auto; /* Or set specific widths as needed */
     padding: 0.75rem;
     text-align: left;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.logs-table th:first-child,
+.logs-table td:first-child {
+    width: 30px; /* adjust as needed */
+    min-width:  30px;
+    max-width:  30px;
+}
+
+.logs-table th:nth-child(2),
+.logs-table td:nth-child(2) {
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+}
+
+.logs-table th:nth-child(3),
+.logs-table td:nth-child(3) {
+    width: 130px;
+    min-width: 130px;
+    max-width: 130px;
+}
+
+.logs-table th:nth-child(4),
+.logs-table td:nth-child(4) {
+    width: 200px;
+    min-width: 200px;
+    max-width:  200px;
+}
+
+.logs-table th:nth-child(5),
+.logs-table td:nth-child(5) {
+    width: 800px;
+    min-width:800px;
+    max-width:  800px;
+}
+
+
+
 
 .logs-table th {
     font-weight: 600;
@@ -167,7 +207,9 @@ html, body {
 
 .logs-table tr:hover {
     background-color: #f1f1f1;
-    transform: translateY(-1px);
+    cursor: pointer;
+
+
 }
 
 .image-small-rounded {
@@ -395,10 +437,16 @@ button.delete-button:hover {
     transition: background-color 0.2s ease;
   }
   
+
+  
   th.sortable:hover {
     background-color: rgba(0, 0, 0, 0.05); /* Light hover effect */
   }
   
+th.sortable{
+    background-color: transparent;
+}
+
   .sort-arrow {
     position: absolute;
     right: 8px;
@@ -527,7 +575,7 @@ button.delete-button:hover {
 
 /* Close Button */
 .details-modal-confirm {
-    background: #4CAF50;
+    background: Red;
     color: white;
     padding: 0.8rem;
     border-radius: 6px;
@@ -537,11 +585,13 @@ button.delete-button:hover {
     font-size: 0.9rem;
     text-transform: uppercase;
     margin-top: auto; /* Pushes the button to the bottom */
+    text-transform: none !important;
+
 }
 
 /* Close Button Hover State */
 .details-modal-confirm:hover {
-    background: #45a049;
+    background: rgb(202, 0, 0);
 }
 
 /* Modal Animation */

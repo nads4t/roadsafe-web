@@ -1,7 +1,7 @@
 <nav *ngIf="loggedIn" class="top-nav">
   <div class="nav-left">
     <ng-container *ngIf="showHomeLink; else justHome">
-      <a (click)="goHome()" class="home-link">Home</a> <span class="arrow"> → </span> <span>{{ breadcrumb }}</span>
+      <a (click)="goHome()" class="home-link">Home</a> <span class="arrow"> >    </span> <span>{{ breadcrumb }}</span>
     </ng-container>
     <ng-template #justHome>
       <span>Home</span>
