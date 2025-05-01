@@ -294,7 +294,20 @@ button.cancel-button {
     transition: background-color 0.3s ease;
 }
 
-
+.confirm-deletion-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #f48c44;
+    color: white;
+    padding: 1rem;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1000; /* Ensure it's above other content */
+}
 
 button.delete-button:hover {
     background-color: #e67e22;
