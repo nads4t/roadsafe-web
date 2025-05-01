@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   currentImageIndex = 0;
   currentImage = this.images[this.currentImageIndex];
   imageInterval: any;
+  isLoggedIn = false;
 
   constructor(
     private authService: AuthService,
@@ -31,27 +33,42 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.startImageRotation();
+
+    // Check if the user is already logged in when the component initializes
+    this.isLoggedIn = this.authService.isLoggedIn();
+    
+    // Listen for changes to the login status across tabs
+    window.addEventListener('storage', this.handleStorageChange.bind(this));
   }
 
   ngOnDestroy() {
     if (this.imageInterval) {
       clearInterval(this.imageInterval);
     }
+    // Clean up the event listener when the component is destroyed
+    window.removeEventListener('storage', this.handleStorageChange.bind(this));
   }
 
   startImageRotation() {
-    // Ensuring image rotation even with two images
     this.imageInterval = setInterval(() => {
       this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
       this.currentImage = this.images[this.currentImageIndex];
       console.log('Current Image:', this.currentImage); // Debugging to ensure the image updates
-    }, 3000); // Change image every 5 seconds
+    }, 3000); // Change image every 3 seconds
   }
 
   login() {
+    if (this.isLoggedIn) {
+      this.errorMessage = 'You are already logged in in another tab.';
+      return;
+    }
+
     this.authService.login(this.email, this.password).subscribe({
       next: (res) => {
         console.log('Logged in!', res);
+        // Set login status in localStorage
+        localStorage.setItem('isLoggedIn', 'true');
+        this.isLoggedIn = true;
         this.router.navigateByUrl('/'); // Navigate to HomeComponent (root path)
       },
       error: (err) => {
@@ -59,5 +76,15 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.errorMessage = err.error?.message || 'Login failed. Please try again.';
       }
     });
+  }
+
+  private handleStorageChange(event: StorageEvent) {
+    // Listen for login status changes across tabs
+    if (event.key === 'isLoggedIn') {
+      this.isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+      if (this.isLoggedIn) {
+        this.router.navigateByUrl('/'); // Redirect to HomeComponent if already logged in in another tab
+      }
+    }
   }
 }
