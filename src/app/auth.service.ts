@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Auth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, User } from '@angular/fire/auth';
-import { from, Observable, tap } from 'rxjs';
+import { from, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,38 +8,19 @@ import { from, Observable, tap } from 'rxjs';
 export class AuthService {
   constructor(private auth: Auth) {}
 
-  // Login method
   login(email: string, password: string): Observable<any> {
-    return from(signInWithEmailAndPassword(this.auth, email, password)).pipe(
-      // After successful login, we store the login status in localStorage
-      tap(() => {
-        localStorage.setItem('isLoggedIn', 'true');
-      })
-    );
+    return from(signInWithEmailAndPassword(this.auth, email, password));
   }
 
-  // Register method
   register(email: string, password: string): Observable<any> {
     return from(createUserWithEmailAndPassword(this.auth, email, password));
   }
 
-  // Logout method
   logout(): Observable<void> {
-    return from(signOut(this.auth)).pipe(
-      // Clear the login status from localStorage when logging out
-      tap(() => {
-        localStorage.removeItem('isLoggedIn');
-      })
-    );
+    return from(signOut(this.auth));
   }
 
-  // Get current user (Firebase Auth method)
   getCurrentUser(): User | null {
     return this.auth.currentUser;
-  }
-
-  // Check if the user is logged in
-  isLoggedIn(): boolean {
-    return localStorage.getItem('isLoggedIn') === 'true';
   }
 }
