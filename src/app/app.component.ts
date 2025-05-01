@@ -61,10 +61,6 @@ export class AppComponent {
   logout() {
     signOut(this.auth).then(() => {
       this.loggedIn = false;
-      localStorage.removeItem('isLoggedIn'); // Clear the login status in localStorage
-      // Trigger the storage event to notify other tabs
-      localStorage.setItem('isLoggedIn', 'false');
-      window.dispatchEvent(new Event('storage')); // Dispatch the storage event manually
       this.router.navigate(['/login']);
     }).catch((error) => {
       console.error('Logout error', error);
