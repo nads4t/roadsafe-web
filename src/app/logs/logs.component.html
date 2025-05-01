@@ -10,12 +10,7 @@
 
   <div class="search-container">
     <input type="text" placeholder="Search logs..." class="search-bar" />
-    <select class="log-filter" [(ngModel)]="selectedSort" (change)="sortTableData()">
-      <option value="" disabled selected>Sort by</option>
-      <option value="confidence">Confidence</option>
-      <option value="date">Date</option>
-      <option value="prediction">Prediction</option>
-    </select>            
+             
     <button *ngIf="!deleteMode" (click)="enableDeleteMode()" class="delete-button">Delete</button>
     <button *ngIf="deleteMode" (click)="cancelDeleteMode()" class="cancel-button">Cancel</button>
   </div>
@@ -24,16 +19,34 @@
     <table class="logs-table">
       <thead>
         <tr>
-          <th>
-            <input *ngIf="deleteMode" type="checkbox" (change)="selectAllRows($event)" />
-          </th>
+          <th></th>
           <th>IMAGE</th>
-          <th>CONFIDENCE</th>
-          <th>DATE</th>
-          <th>LOCATION</th>
-          <th>PREDICTION</th>
+          <th (click)="sortTableBy('confidence')" class="sortable">
+            Confidence
+            <span class="sort-arrow" [class.visible]="currentSort.column === 'confidence'">
+              {{ currentSort.column === 'confidence' ? (currentSort.direction === 'asc' ? '▲' : '▼') : '▲' }}
+            </span>
+          </th>
+          <th (click)="sortTableBy('date')" class="sortable">
+            Date
+            <span class="sort-arrow" [class.visible]="currentSort.column === 'date'">
+              {{ currentSort.column === 'date' ? (currentSort.direction === 'asc' ? '▲' : '▼') : '▲' }}
+            </span>
+          </th>
+          <th (click)="sortTableBy('location')" class="sortable">
+            Location
+            <span class="sort-arrow" [class.visible]="currentSort.column === 'location'">
+              {{ currentSort.column === 'location' ? (currentSort.direction === 'asc' ? '▲' : '▼') : '▲' }}
+            </span>
+          </th>
+          <th (click)="sortTableBy('prediction')" class="sortable">
+            Prediction
+            <span class="sort-arrow" [class.visible]="currentSort.column === 'prediction'">
+              {{ currentSort.column === 'prediction' ? (currentSort.direction === 'asc' ? '▲' : '▼') : '▲' }}
+            </span>
+          </th>
         </tr>
-      </thead>
+      </thead> 
       <tbody>
         <tr *ngFor="let item of tableData; let i = index" class="clickable-row">
           <td>
