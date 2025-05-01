@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   todayCount: number = 0; // New variable for today’s count
   searchTerm: string = '';  // Variable for search term
   selectedTab: string = 'all'; // Default tab is "All"
-
+  latestImage: string = 'assets/default-image.jpg'; // Fallback image
 
 
   constructor(
@@ -167,6 +167,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
           // Get the latest confidence value and convert it to percentage with one decimal
           this.latestConfidence = parseFloat((latestItem.confidence * 100).toFixed(1)); // Convert to percentage with 1 decimal
 
+          this.latestImage = latestItem.image || 'assets/default-image.jpg';
+
+
+
           // Get address for latest item
           this.firestoreService.getAddressFromCoordinates(
             latestItem.location.latitude,
@@ -177,8 +181,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
             },
             error: () => {
               this.latestAddress = 'Unknown Location';
-            }
+            } 
           });
+          
+
+
         }
       },
       error: (err) => console.error('Error loading data:', err)
