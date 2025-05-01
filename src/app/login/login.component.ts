@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   password = '';
   errorMessage = '';
   images = [
-    'https://i.ibb.co/nq9srxYg/pexels-tranmautritam-448828.jpg', // Image 1
-    'https://i.ibb.co/SkmTPFm/road.jpg' // Image 2
+    'https://i.ibb.co/d0nmPN8q/491217162-475344848938181-5652417650372658418-n.jpg', // Image 1
+    'https://i.ibb.co/v2YCTpN/495071536-4152750581681066-331987046933579498-n.jpg' // Image 2
   ];
   currentImageIndex = 0;
   currentImage = this.images[this.currentImageIndex];
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
       this.currentImage = this.images[this.currentImageIndex];
       console.log('Current Image:', this.currentImage); // Debugging to ensure the image updates
-    }, 5000); // Change image every 5 seconds
+    }, 3000); // Change image every 5 seconds
   }
 
   login() {
