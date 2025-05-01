@@ -43,7 +43,7 @@
   }
 
   .home-link {
-    color: #007bff; /* Blue color */
+    color: #F48C44; /* Blue color */
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s ease;
@@ -51,6 +51,6 @@
   }
   
   .home-link:hover {
-    color: #0056b3; /* Darker blue on hover */
+    color: #c65300; /* Darker blue on hover */
     text-decoration: underline;
   }

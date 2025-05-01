@@ -112,11 +112,14 @@ html, body {
 
 .search-bar {
     flex: 1;
-    padding: 0.75rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-right: 30rem;
     border: 1px solid #ccc;
     border-radius: 8px;
     font-size: 1rem;
     box-sizing: border-box;
+
 }
 
 .search-bar:focus {
