@@ -79,7 +79,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of getPaginatedData(); let i = index" class="clickable-row">
+        <tr *ngFor="let item of getPaginatedData(); let i = index" class="clickable-row" (click)="openRowModal(item)">
           <td>
             <input *ngIf="deleteMode" type="checkbox" [(ngModel)]="item.selected" (change)="checkSelectedRows()" />
           </td>
@@ -114,3 +114,29 @@
     </div>
   </div>
 </div>
+
+<!-- MODAL -->
+<div *ngIf="showRowModal" class="details-modal">
+  <div class="details-modal-content">
+    <!-- Big Image at the top -->
+    <img [src]="selectedRowData?.image" alt="Item Image" class="details-image-large" />
+    
+    <!-- Details Section -->
+    <div class="details-section">
+      <div class="details-left">
+        <!-- Display the address instead of the location object -->
+        <p>{{ selectedRowData?.address || 'Address not available' }}</p>
+        <p>{{ selectedRowData?.readableDate | date: 'medium' }}</p>
+      </div>
+      
+      <div class="details-right">
+        <p>{{ selectedRowData?.prediction }}</p>
+        <p>{{ selectedRowData?.confidence }}</p>
+      </div>
+    </div>
+    <!-- Close Button -->
+    <button class="details-modal-confirm" (click)="closeRowModal()">Close</button>
+  </div>
+</div>
+
+

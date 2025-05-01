@@ -239,4 +239,17 @@ export class LogsComponent implements OnInit {
   onSearchChange(): void {
     this.applySearch();
   }
+  
+  showRowModal = false;
+  selectedRowData: any;
+
+  openRowModal(item: any) {
+    this.selectedRowData = item;
+    this.showRowModal = true;
+  }
+
+  closeRowModal() {
+    this.showRowModal = false;
+  }
+
 }

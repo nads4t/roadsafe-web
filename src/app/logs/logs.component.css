@@ -409,3 +409,154 @@ button.delete-button:hover {
   .sort-arrow.visible {
     opacity: 1;
   }
+
+/* details modal */
+
+.details-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2000;
+    padding: 1rem;
+}
+
+.details-modal-content {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    max-height: 550px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: auto;
+    flex-grow: 1;
+    overflow: hidden; /* Prevents overflow if the content overflows */
+}
+
+.details-modal-content::after {
+    content: "";
+    flex-grow: 1; /* Ensures the content area grows to push the button to the bottom */
+}
+
+/* Image that takes up full width of the modal */
+.details-image-large {
+    width: 100%; /* Image takes up the entire width */
+    height: 20rem; /* Set a fixed height */
+    object-fit: cover; /* Ensures the image fills the area without stretching */
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+/* Details Section */
+/* General Modal Style */
+.details-modal {
+    position: fixed;
+    top: 50%;  /* Centers the modal vertically */
+    left: 50%;  /* Centers the modal horizontally */
+    transform: translate(-50%, -50%); /* Offsets the position by 50% of its own width and height */
+    z-index: 2000;
+    padding: 1rem;
+    max-width: 600px; /* Max width of modal */
+    width: 100%; /* Ensures it is responsive */
+    box-sizing: border-box; /* Ensures padding is included in the width calculation */
+}
+
+/* Modal Content Container */
+.details-modal-content {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    max-height: 80vh; /* Restricts max height of modal */
+    overflow-y: auto; /* Allows scrolling if content overflows */
+}
+
+/* Image Style */
+.details-image-large {
+    width: 100%;
+    height: auto;
+    max-height: 200px; /* Adjust the image size */
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+/* Details Section Layout */
+.details-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem; /* Adds space between left and right sections */
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap; /* Allows content to wrap on smaller screens */
+}
+
+/* Left Section */
+.details-left {
+    flex: 1;
+    text-align: left;
+    overflow: hidden; /* Ensures overflow text is hidden */
+}
+
+.details-left p {
+    white-space: nowrap; /* Prevents wrapping for long address */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adds ellipsis for overflowing text */
+    margin-bottom: 0.5rem;
+}
+
+/* Right Section */
+.details-right {
+    flex: 1;
+    text-align: right;
+    max-width: 50%; /* Restricts the right section width */
+    overflow-wrap: break-word; /* Ensures text wraps properly */
+}
+
+.details-right p {
+    margin-bottom: 0.5rem;
+    white-space: normal; /* Allows wrapping */
+}
+
+/* Close Button */
+.details-modal-confirm {
+    background: #4CAF50;
+    color: white;
+    padding: 0.8rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    margin-top: auto; /* Pushes the button to the bottom */
+}
+
+/* Close Button Hover State */
+.details-modal-confirm:hover {
+    background: #45a049;
+}
+
+/* Modal Animation */
+@keyframes detailsPopIn {
+    0% {
+        opacity: 0;
+        transform: translateX(50%) scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+.details-modal-content {
+    animation: detailsPopIn 0.3s ease-in-out;
+}
+
