@@ -475,7 +475,7 @@ button.delete-button:hover {
     display: flex;
     flex-direction: column;
     height: auto;
-    max-height: 80vh; /* Restricts max height of modal */
+    max-height: 90vh; /* Restricts max height of modal */
     overflow-y: auto; /* Allows scrolling if content overflows */
 }
 
@@ -483,7 +483,7 @@ button.delete-button:hover {
 .details-image-large {
     width: 100%;
     height: auto;
-    max-height: 200px; /* Adjust the image size */
+    max-height: 400px; /* Adjust the image size */
     object-fit: cover;
     border-radius: 8px;
     margin-bottom: 1.5rem;

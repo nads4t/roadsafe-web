@@ -79,7 +79,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of getPaginatedData(); let i = index" class="clickable-row" (click)="openRowModal(item)">
+        <tr *ngFor="let item of getPaginatedData(); let i = index" class="clickable-row" (click)="deleteMode ? null : openRowModal(item)">
           <td>
             <input *ngIf="deleteMode" type="checkbox" [(ngModel)]="item.selected" (change)="checkSelectedRows()" />
           </td>
