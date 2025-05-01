@@ -25,13 +25,11 @@ export class AuthService {
 
   // Logout method
   logout(): Observable<void> {
-    return from(signOut(this.auth)).pipe(
-      // Clear the login status from localStorage when logging out
-      tap(() => {
-        localStorage.removeItem('isLoggedIn');
-      })
-    );
-  }
+  // Clear the login status in localStorage when logging out
+  localStorage.removeItem('isLoggedIn');
+  return from(signOut(this.auth));
+}
+
 
   // Get current user (Firebase Auth method)
   getCurrentUser(): User | null {
