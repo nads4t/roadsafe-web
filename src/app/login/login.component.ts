@@ -18,8 +18,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   errorMessage = '';
   images = [
     'https://i.ibb.co/d0nmPN8q/491217162-475344848938181-5652417650372658418-n.jpg', // Image 1
-    'https://i.ibb.co/v2YCTpN/495071536-4152750581681066-331987046933579498-n.jpg',
-    'https://i.ibb.co/cK3hD1QF/491217162-475344848938181-5652417650372658418-n.jpg' // Image 2
+    'https://i.ibb.co/v2YCTpN/495071536-4152750581681066-331987046933579498-n.jpg' // Image 2
   ];
   currentImageIndex = 0;
   currentImage = this.images[this.currentImageIndex];
