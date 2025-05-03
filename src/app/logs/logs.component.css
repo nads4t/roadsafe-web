@@ -354,7 +354,121 @@ button.manage-button:hover {
     transform: translate(-50%, -50%); /* move left AND move up by 50% */
     z-index: 2000;
   }
+
+  .status-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+  }
+
+  .status-modal-content {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 2rem;
+    min-width: 280px;
+    max-width: 400px;  /* reduced from 60% to fixed size */
+    text-align: center;
+    animation: popIn 0.3s ease;
+  }
   
+  .status-info-container {
+    display: flex;
+    align-items: center; /* Vertically align image and text */
+    justify-content: flex-start; /* Align everything to the left */
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  
+  .details-image-small {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    flex-shrink: 0; /* Prevent image from shrinking */
+  }
+  
+  .status-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    flex: 1;
+    min-width: 0; /* needed for text-overflow to work inside flex */
+  }
+  
+  .status-text .address,
+  .status-text .date {
+    margin: 0;
+    line-height: 1.4;
+  }
+  
+  .status-text .address {
+    margin: 0;
+    font-weight: bold;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;      /* Limit to 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+    max-width: 100%;
+  }
+  
+  .status-text .date {
+    color: gray;
+    font-size: 0.9rem;
+  }
+  
+  .status-dropdown-container {
+    text-align: left;
+    margin-bottom: 1.5rem;
+  }
+  
+  .status-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  .status-dropdown {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+
+  .status-buttons {
+    display: flex;
+    justify-content: flex-start; /* Align to left */
+    gap: 0.5rem;
+  }
+  
+  .status-confirm {
+    background: #dc2626; /* red-600 */
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .status-cancel {
+    background: #6b7280; /* gray-500 */
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+  }
   
   .floating-modal-content {
     background: white;

@@ -99,7 +99,7 @@
           <td>{{ item.prediction }}</td>
           <td>
             <i class="fa-solid fa-eye" style="margin-right: 10px; cursor: pointer;"  (click)="openRowModal(item)"></i>
-            <i class="fa-solid fa-pen-to-square" style="margin-right: 10px;"></i>
+            <i class="fa-solid fa-pen-to-square" style="margin-right: 10px;" (click)="openUpdateModal(item)"></i>
             <i class="fa-solid fa-trash-can" style="color: red; cursor: pointer;" (click)="openRowDeletionModal(item)"></i>
           </td>
         </tr>
@@ -169,3 +169,33 @@
     <i class="fa-solid fa-trash-can"></i> Delete
   </span>
 </div>
+
+<div *ngIf="showUpdateModal" class="status-modal">
+  <div class="status-modal-content">
+    <div class="status-info-container">
+      <img [src]="selectedRowData?.image" alt="Item Image" class="details-image-small" />
+      <div class="status-text">
+        <p class="address">{{ selectedRowData?.address || 'Address not available' }}</p>
+        <p class="date">{{ selectedRowData?.readableDate | date: 'medium' }}</p>
+      </div>
+    </div>
+
+    <!-- Status label and dropdown -->
+    <div class="status-dropdown-container">
+      <label for="statusSelect" class="status-label">Status</label>
+      <select id="statusSelect" class="status-dropdown">
+        <option value="reported">Reported</option>
+        <option value="inspected">Inspected</option>
+        <option value="inProgress">In Progress</option>
+        <option value="fixed">Fixed</option>
+      </select>
+    </div>
+
+    <div class="status-buttons">
+      <button class="status-confirm">Update</button>
+      <button class="status-cancel" (click)="closeUpdateModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+ 

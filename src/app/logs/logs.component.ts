@@ -28,6 +28,7 @@ interface TableDataItem {
 export class LogsComponent implements OnInit {
   deletionDate: Date | null = null;  // Property to hold the deletion date
   showRowDeletionModal: boolean = false;  // New variable for the row deletion modal
+  showUpdateModal: boolean = false;  // New variable for the row deletion modal
   selectedRowToDelete: TableDataItem | null = null;  // Store the row to be deleted
   tableData: TableDataItem[] = [];
   filteredTableData: TableDataItem[] = []; // New array for filtered data
@@ -303,5 +304,16 @@ export class LogsComponent implements OnInit {
   closeRowModal() {
     this.showRowModal = false;
   }
+
+  openUpdateModal(item: any) {
+    this.selectedRowData = item;
+    this.showUpdateModal = true;
+  }
+
+  closeUpdateModal() {
+    this.showUpdateModal = false;
+  }
+
+  
 
 }
