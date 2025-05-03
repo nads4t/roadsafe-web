@@ -605,4 +605,17 @@ th.sortable:hover {
   color: #555; /* Dark gray text */
 }
 
+.logs-table th:nth-child(1),
+.logs-table td:nth-child(1) {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+}
+
+.logs-table th:nth-child(2),
+.logs-table td:nth-child(2) {
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+}
 
