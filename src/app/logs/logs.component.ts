@@ -348,12 +348,12 @@ export class LogsComponent implements OnInit {
     }
   
     switch (status) {
-      case 'in-progress':
-        return 'in-progress'; // Class for 'in-progress' status
-      case 'pending':
-        return 'pending'; // Class for 'pending' status
-      case 'resolved':
-        return 'resolved'; // Class for 'resolved' status
+      case 'repair-underway':
+        return 'repair-underway'; // Class for 'in-progress' status
+      case 'awaiting-repair':
+        return 'awaiting-repair'; // Class for ' ' status
+      case 'fixed':
+        return 'fixed'; // Class for 'resolved' status
       default:
         return 'no-status'; // Default case for unknown status
     }

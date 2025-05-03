@@ -72,12 +72,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }
   
     switch (status) {
-      case 'in-progress':
-        return 'in-progress'; // Class for 'in-progress' status
-      case 'pending':
-        return 'pending'; // Class for 'pending' status
-      case 'resolved':
-        return 'resolved'; // Class for 'resolved' status
+      case 'repair-underway':
+        return 'repair-underway'; // Class for 'in-progress' status
+      case 'awaiting-repair':
+        return 'awaiting-repair'; // Class for ' ' status
+      case 'fixed':
+        return 'fixed'; // Class for 'resolved' status
       default:
         return 'no-status'; // Default case for unknown status
     }
@@ -264,13 +264,13 @@ export class HomeComponent implements OnInit, AfterViewInit {
       div.innerHTML = `
         <strong>Marker Status</strong><br>
         <div class="legend-item" style="display: flex; align-items: center;">
-          <span class="legend-color" style="background-color: orange; width: 20px; height: 20px; margin-right: 5px;"></span> In Progress
+          <span class="legend-color" style="background-color: orange; width: 20px; height: 20px; margin-right: 5px;"></span> Repair Underway
         </div>
         <div class="legend-item" style="display: flex; align-items: center;">
-          <span class="legend-color" style="background-color: yellow; width: 20px; height: 20px; margin-right: 5px;"></span> Pending
+          <span class="legend-color" style="background-color: yellow; width: 20px; height: 20px; margin-right: 5px;"></span> Awaiting Repair
         </div>
         <div class="legend-item" style="display: flex; align-items: center;">
-          <span class="legend-color" style="background-color: green; width: 20px; height: 20px; margin-right: 5px;"></span> Resolved
+          <span class="legend-color" style="background-color: green; width: 20px; height: 20px; margin-right: 5px;"></span> Fixed
         </div>
         <div class="legend-item" style="display: flex; align-items: center;">
           <span class="legend-color" style="background-color: blue; width: 20px; height: 20px; margin-right: 5px;"></span> Unassigned
@@ -322,7 +322,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         // Determine the pin image based on the 'status' field
         let markerIcon: L.Icon;
         switch (item.status) {
-          case 'in-progress':
+          case 'repair-underway':
             markerIcon = L.icon({
               iconUrl: 'assets/marker-icon-orange.png',  // In-progress = Orange
               iconSize: [25, 41],  // Adjust size as needed
@@ -330,7 +330,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
               popupAnchor: [1, -34]
             });
             break;
-          case 'pending':
+          case 'awaiting-repair':
             markerIcon = L.icon({
               iconUrl: 'assets/marker-icon-yellow.png',  // Pending = Yellow
               iconSize: [25, 41],  // Adjust size as needed
@@ -338,7 +338,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
               popupAnchor: [1, -34]
             });
             break;
-          case 'resolved':
+          case 'fixed':
             markerIcon = L.icon({
               iconUrl: 'assets/marker-icon-green.png',  // Resolved = Green
               iconSize: [25, 41],  // Adjust size as needed
