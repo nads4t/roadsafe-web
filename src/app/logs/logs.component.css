@@ -181,16 +181,16 @@ html, body {
 
 .logs-table th:nth-child(4),
 .logs-table td:nth-child(4) {
-    width: 200px;
-    min-width: 200px;
-    max-width:  200px;
+    width: 100px;
+    min-width: 100px;
+    max-width:  100px;
 }
 
 .logs-table th:nth-child(5),
 .logs-table td:nth-child(5) {
-    width: 600px;
-    min-width:600px;
-    max-width:  600px;
+    width: 500px;
+    min-width:500px;
+    max-width:  5%;
 }
 
 
@@ -747,3 +747,35 @@ th.sortable{
     font-weight: normal;
     cursor: pointer;
 }
+
+.in-progress {
+    background-color: rgba(255, 165, 0, 0.3); /* Orange, 30% opaque */
+    color: #ff8c00; /* Solid orange text */
+  }
+  
+  .pending {
+    background-color: rgba(255, 255, 0, 0.3); /* Yellow, 30% opaque */
+    color: #b59b00; /* Solid dark yellow text */
+  }
+  
+  .resolved {
+    background-color: rgba(0, 128, 0, 0.3); /* Green, 30% opaque */
+    color: #006400; /* Solid green text */
+  }
+  
+  .no-status {
+    background-color: rgba(200, 200, 200, 0.3); /* Light gray, 30% opaque */
+    color: #555; /* Dark gray text */
+  }
+
+  .status-span {
+    padding: 5px 15px;
+    display: inline-block;
+    border-radius: 4px;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    border-radius: 5000px;
+  }

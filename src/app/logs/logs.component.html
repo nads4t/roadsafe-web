@@ -79,7 +79,12 @@
               {{ currentSort.column === 'prediction' ? (currentSort.direction === 'asc' ? '▲' : '▼') : '▲' }}
             </span>
           </th>
-          <th>Status</th>
+          <th (click)="sortTableBy('status')" class="sortable">
+            Status
+            <span class="sort-arrow" [class.visible]="currentSort.column === 'status'">
+              {{ currentSort.column === 'status' ? (currentSort.direction === 'asc' ? '▲' : '▼') : '▲' }}
+            </span>
+          </th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -99,8 +104,10 @@
           </td>
           <td>{{ item.prediction }}</td>
           <td>
-            {{ item.status || 'No Status' }}
-          </td>
+            <span class="status-span" [ngClass]="getStatusClass(item.status)">
+              {{ item.status || 'No Status' }}
+            </span>
+            </td>
           <td>
             <i class="fa-solid fa-eye" style="margin-right: 10px; cursor: pointer;"  (click)="openRowModal(item)"></i>
             <i class="fa-solid fa-pen-to-square" style="margin-right: 10px;" (click)="openUpdateModal(item)"></i>

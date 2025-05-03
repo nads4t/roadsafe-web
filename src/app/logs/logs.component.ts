@@ -266,6 +266,9 @@ export class LogsComponent implements OnInit {
       } else if (column === 'prediction') {
         valueA = a.prediction?.toLowerCase() || '';
         valueB = b.prediction?.toLowerCase() || '';
+      } else if (column === 'status') {
+        valueA = a.status?.toLowerCase() || '';
+        valueB = b.status?.toLowerCase() || '';
       } else {
         return 0;
       }
@@ -336,6 +339,23 @@ export class LogsComponent implements OnInit {
       });
     } else {
       console.error('No log selected or status is empty');
+    }
+  }
+
+  getStatusClass(status?: string): string {
+    if (!status) {
+      return 'no-status'; // Return class for default status
+    }
+  
+    switch (status) {
+      case 'in-progress':
+        return 'in-progress'; // Class for 'in-progress' status
+      case 'pending':
+        return 'pending'; // Class for 'pending' status
+      case 'resolved':
+        return 'resolved'; // Class for 'resolved' status
+      default:
+        return 'no-status'; // Default case for unknown status
     }
   }
 
