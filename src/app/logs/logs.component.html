@@ -193,13 +193,14 @@
 
     <!-- Status label and dropdown -->
     <div class="status-dropdown-container">
-      <label for="statusSelect" class="status-label">Status</label>
-      <select id="status" [(ngModel)]="newStatus">
+      <label for="status" class="status-label">Status</label>
+      <select id="status" [(ngModel)]="newStatus" class="status-select">
         <option value="pending">Pending</option>
         <option value="resolved">Resolved</option>
         <option value="in-progress">In Progress</option>
       </select>
     </div>
+    
 
     <div class="status-buttons">
       <button  class="status-confirm"(click)="updateLogStatus()">Update</button>
