@@ -120,7 +120,7 @@
                 <td>{{ item.prediction }}</td>
                 <td>
                 <span class="status-span" [ngClass]="getStatusClass(item.status)">
-                  {{ item.status || 'No Status' }}
+                  {{ getFormattedStatus(item.status) }}
                 </span>
                 </td>
               </tr>

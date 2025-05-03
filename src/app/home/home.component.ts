@@ -57,6 +57,15 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.initMap();
   }
 
+  getFormattedStatus(status?: string): string {
+    if (!status) return 'No Status';  // Handle undefined or empty string
+  
+    return status
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+
   selectTab(tab: string): void {
     this.selectedTab = tab;
   }

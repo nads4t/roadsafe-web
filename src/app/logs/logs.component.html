@@ -105,9 +105,9 @@
           <td>{{ item.prediction }}</td>
           <td>
             <span class="status-span" [ngClass]="getStatusClass(item.status)">
-              {{ item.status || 'No Status' }}
+              {{ getFormattedStatus(item.status) }}
             </span>
-            </td>
+          </td>
           <td>
             <i class="fa-solid fa-eye" style="margin-right: 10px; cursor: pointer;"  (click)="openRowModal(item)"></i>
             <i class="fa-solid fa-pen-to-square" style="margin-right: 10px;" (click)="openUpdateModal(item)"></i>

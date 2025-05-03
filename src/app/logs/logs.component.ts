@@ -54,6 +54,15 @@ export class LogsComponent implements OnInit {
     this.loadTableData();
   }
 
+  getFormattedStatus(status?: string): string {
+    if (!status) return 'No Status';  // Handle undefined or empty string
+  
+    return status
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+
   private loadTableData(): void {
     this.firestoreService.getTableData().subscribe({
       next: (data: any[]) => {
