@@ -550,3 +550,26 @@ th.sortable:hover {
   text-decoration: underline; /* Add underline for active tab */
 }
 
+/* Legend styling */
+/* Legend styling */
+.leaflet-legend {
+  background-color: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.legend-item {
+  margin-bottom: 5px;
+}
+
+.legend-color {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+

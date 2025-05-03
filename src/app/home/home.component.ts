@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { NgxGaugeModule } from 'ngx-gauge';
 
+
 import * as L from 'leaflet';
 import { Router } from '@angular/router';
 
@@ -18,6 +19,8 @@ interface TableDataItem {
   prediction: string;
   timestamp?: any;
   address?: string;  // Add the address property here
+  status?: string;  // Add the status property here
+
 }
 
 @Component({
@@ -216,13 +219,54 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   private initMap(): void {
-    this.fixLeafletMarkerIcons();
-
+    // Create the map and set its initial view and zoom level
     this.map = L.map('map').setView([13.1480, 123.7132], 14);
 
+    // Add the tile layer to the map
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map);
+
+    // Add the custom legend control
+    this.addLegendControl();
+  }
+
+  private addLegendControl(): void {
+    // Create a new Control instance instead of using L.control()
+    const legend = new L.Control({ position: 'bottomleft' });
+  
+    // Add content to the legend
+    legend.onAdd = (map: L.Map) => {
+      const div = L.DomUtil.create('div', 'leaflet-legend');
+  
+      // Apply styles to the legend container
+      div.style.backgroundColor = 'white';  // Set background color to white
+      div.style.padding = '10px';  // Optional: Add padding for better spacing
+      div.style.borderRadius = '5px';  // Optional: Add rounded corners
+  
+      div.innerHTML = `
+        <strong>Marker Status</strong><br>
+        <div class="legend-item" style="display: flex; align-items: center;">
+          <span class="legend-color" style="background-color: orange; width: 20px; height: 20px; margin-right: 5px;"></span> In Progress
+        </div>
+        <div class="legend-item" style="display: flex; align-items: center;">
+          <span class="legend-color" style="background-color: yellow; width: 20px; height: 20px; margin-right: 5px;"></span> Pending
+        </div>
+        <div class="legend-item" style="display: flex; align-items: center;">
+          <span class="legend-color" style="background-color: green; width: 20px; height: 20px; margin-right: 5px;"></span> Resolved
+        </div>
+        <div class="legend-item" style="display: flex; align-items: center;">
+          <span class="legend-color" style="background-color: blue; width: 20px; height: 20px; margin-right: 5px;"></span> Unassigned
+        </div>
+      `;
+      
+      return div;
+    };
+  
+    // Add the legend to the map
+    if (this.map) {
+      legend.addTo(this.map);
+    }
   }
 
   private fixLeafletMarkerIcons(): void {
@@ -257,9 +301,47 @@ export class HomeComponent implements OnInit, AfterViewInit {
     for (const item of this.tableData) {
       if (item.location && typeof item.location.latitude === 'number' && typeof item.location.longitude === 'number') {
         const latLng = L.latLng(item.location.latitude, item.location.longitude);
-        const marker = L.marker(latLng, {
-          icon: new L.Icon.Default()
-        }).addTo(this.map);
+  
+        // Determine the pin image based on the 'status' field
+        let markerIcon: L.Icon;
+        switch (item.status) {
+          case 'in-progress':
+            markerIcon = L.icon({
+              iconUrl: 'assets/marker-icon-orange.png',  // In-progress = Orange
+              iconSize: [25, 41],  // Adjust size as needed
+              iconAnchor: [12, 41], // Adjust anchor point as needed
+              popupAnchor: [1, -34]
+            });
+            break;
+          case 'pending':
+            markerIcon = L.icon({
+              iconUrl: 'assets/marker-icon-yellow.png',  // Pending = Yellow
+              iconSize: [25, 41],  // Adjust size as needed
+              iconAnchor: [12, 41], // Adjust anchor point as needed
+              popupAnchor: [1, -34]
+            });
+            break;
+          case 'resolved':
+            markerIcon = L.icon({
+              iconUrl: 'assets/marker-icon-green.png',  // Resolved = Green
+              iconSize: [25, 41],  // Adjust size as needed
+              iconAnchor: [12, 41], // Adjust anchor point as needed
+              popupAnchor: [1, -34]
+            });
+            break;
+          default:
+            // Default case for any other status or missing status
+            markerIcon = L.icon({
+              iconUrl: 'assets/marker-icon-blue.png',   // Default = Blue
+              iconSize: [25, 41],  // Adjust size as needed
+              iconAnchor: [12, 41], // Adjust anchor point as needed
+              popupAnchor: [1, -34]
+            });
+            break;
+        }
+  
+        // Create marker with the appropriate icon
+        const marker = L.marker(latLng, { icon: markerIcon }).addTo(this.map);
   
         // Fetch the address from Mapbox and store it in tableData
         this.firestoreService.getAddressFromCoordinates(item.location.latitude, item.location.longitude)
@@ -285,6 +367,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.map.fitBounds(group.getBounds(), { padding: [20, 20] });
     }
   }
+  
+  
   
 
   formatLocation(location: { latitude: number, longitude: number } | undefined): string {
