@@ -174,23 +174,35 @@ html, body {
 
 .logs-table th:nth-child(3),
 .logs-table td:nth-child(3) {
-    width: 130px;
-    min-width: 130px;
-    max-width: 130px;
+    width: 120px;
+    min-width: 120px;
+    max-width: 120px;
 }
 
 .logs-table th:nth-child(4),
 .logs-table td:nth-child(4) {
-    width: 100px;
-    min-width: 100px;
-    max-width:  100px;
+    width: 120px;
+    min-width: 120px;
+    max-width:  120px;
 }
 
 .logs-table th:nth-child(5),
 .logs-table td:nth-child(5) {
-    width: 500px;
-    min-width:500px;
-    max-width:  5%;
+    width: 600px;
+    min-width:600px;
+    max-width: 600px;
+}
+
+.logs-table th:nth-child(6),
+.logs-table td:nth-child(6) {
+    width: 100px;
+    min-width:100px;
+    max-width: 100px;
+}
+
+.logs-table th:nth-child(7),
+.logs-table td:nth-child(7) {
+text-align: center;
 }
 
 
@@ -766,13 +778,15 @@ th.sortable{
   .no-status {
     background-color: rgba(200, 200, 200, 0.3); /* Light gray, 30% opaque */
     color: #555; /* Dark gray text */
+    text-align: middle;
+
   }
 
   .status-span {
     padding: 5px 15px;
     display: inline-block;
     border-radius: 4px;
-    text-align: center;
+    text-align: middle;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
