@@ -207,9 +207,6 @@ html, body {
 
 .logs-table tr:hover {
     background-color: #f1f1f1;
-    cursor: pointer;
-
-
 }
 
 .image-small-rounded {
@@ -281,11 +278,9 @@ button.cancel-delete-btn:hover {
 }
 
 /* Delete Button */
-button.delete-button,
-button.confirm-deletion-button,
+button.manage-button,
 button.cancel-button {
-    background-color: #f48c44;
-    color: white;
+    color: rgb(103, 103, 103);
     padding: 0.75rem 1.25rem;
     border-radius: 8px;
     cursor: pointer;
@@ -294,23 +289,10 @@ button.cancel-button {
     transition: background-color 0.3s ease;
 }
 
-.confirm-deletion-button {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    background-color: #f48c44;
-    color: white;
-    padding: 1rem;
-    border-radius: 50%;
-    font-size: 1.2rem;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 1000; /* Ensure it's above other content */
-}
 
-button.delete-button:hover {
-    background-color: #e67e22;
+
+button.manage-button:hover {
+    background-color: rgb(223, 223, 223);
 }
 
 /* Location */
@@ -380,7 +362,7 @@ button.delete-button:hover {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     padding: 2rem;
     min-width: 300px;
-    max-width: 90%;
+    max-width: 60%;
     text-align: center;
     animation: popIn 0.3s ease;
   }
@@ -623,3 +605,31 @@ th.sortable{
     animation: detailsPopIn 0.3s ease-in-out;
 }
 
+/* Floating selection info styling */
+.floating-selection-info {
+    position: fixed;
+    bottom: 80px; /* Adjust the spacing as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f48c44;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5000px;
+    font-size: 16px;
+    text-align: center;
+    z-index: 1000;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    animation: fadeInUp 0.3s ease-out;
+    display: inline-flex;
+    align-items: center;
+}
+
+.floating-selection-info p {
+    margin: 0; /* Remove default margin */
+}
+
+.additional-text {
+    margin-left: 30px; /* Adjust spacing between texts */
+    font-weight: normal;
+    cursor: pointer;
+}

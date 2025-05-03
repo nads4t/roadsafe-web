@@ -93,6 +93,7 @@ export class FirestoreService {
       batch.delete(logRef);
     });
 
+    
     // Commit the batch to delete the logs
     return new Observable((observer) => {
       batch.commit()
@@ -106,4 +107,22 @@ export class FirestoreService {
         });
     });
   }
+
+
+  deleteLogById(logId: string): Observable<any> {
+    const logRef = doc(this.firestore, 'road damage detections', logId);
+  
+    return new Observable((observer) => {
+      deleteDoc(logRef)
+        .then(() => {
+          observer.next(`Log with ID ${logId} deleted successfully`);
+          observer.complete();
+        })
+        .catch(error => {
+          console.error('Error deleting log:', error);
+          observer.error(error);
+        });
+    });
+  }  
+
 }

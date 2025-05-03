@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 interface TableDataItem {
+  id: string;               // Add the id property
   image: string;
   confidence: number;
   readableDate: Date;
@@ -25,11 +26,13 @@ interface TableDataItem {
   styleUrls: ['./logs.component.css']
 })
 export class LogsComponent implements OnInit {
+  deletionDate: Date | null = null;  // Property to hold the deletion date
+  showRowDeletionModal: boolean = false;  // New variable for the row deletion modal
+  selectedRowToDelete: TableDataItem | null = null;  // Store the row to be deleted
   tableData: TableDataItem[] = [];
   filteredTableData: TableDataItem[] = []; // New array for filtered data
   selectedSort: string = '';
   deleteMode: boolean = false;
-  showConfirmDeletion: boolean = false;
   showDeletionModal: boolean = false;
   rowsToDeleteCount: number = 0;
   searchTerm: string = ''; // Search term to filter logs
@@ -112,6 +115,10 @@ export class LogsComponent implements OnInit {
     }
   }
 
+  getSelectedRowCount(): number {
+    return this.tableData.filter(item => item.selected).length;
+  }
+
   // Get row count
   getRowCount(): number {
     return this.tableData.length;
@@ -132,7 +139,7 @@ export class LogsComponent implements OnInit {
   cancelDeleteMode(): void {
     this.deleteMode = false;
     this.deselectAllRows();
-    this.showConfirmDeletion = false;
+    this.rowsToDeleteCount = 0;  // Reset selected count
   }
 
   // Select all rows with a checkbox click
@@ -142,15 +149,33 @@ export class LogsComponent implements OnInit {
     this.checkSelectedRows();
   }
 
+  totalRows: number = 0; // To store the total number of rows
+
   // Check if any row is selected and show the confirm button
   checkSelectedRows(): void {
-    const selectedCount = this.tableData.filter(item => item.selected).length;
-    this.showConfirmDeletion = selectedCount > 0;
+    // Calculate total number of rows
+    this.totalRows = this.tableData.length;
+    
+    // Count the number of selected rows
+    this.rowsToDeleteCount = this.tableData.filter(item => item.selected).length;
+  
+    // Show the confirm deletion modal if there are selected rows
   }
+  
 
   // Confirm deletion of selected rows
   openDeletionModal(): void {
-    this.rowsToDeleteCount = this.tableData.filter(item => item.selected).length;
+    const selectedLogs = this.tableData.filter(item => item.selected);
+  
+    this.rowsToDeleteCount = selectedLogs.length;
+    
+    if (selectedLogs.length > 0) {
+      this.deletionDate = selectedLogs[0].readableDate;  // Assuming the first selected row has readableDate
+      console.log('Deletion date set to:', this.deletionDate);  // Debug log
+    } else {
+      this.deletionDate = null;
+    }
+  
     this.showDeletionModal = true;
   }
 
@@ -168,15 +193,42 @@ export class LogsComponent implements OnInit {
     });
   }
 
+  openRowDeletionModal(item: any): void {
+  this.selectedRowToDelete = item; // Set selected row for deletion
+  this.deletionDate = item.readableDate;
+  this.showRowDeletionModal = true; // Ensure the deletion modal is shown
+}
+
+  // Method to confirm deletion of the selected row
+  confirmRowDeletion(): void {
+    if (this.selectedRowToDelete) {
+      this.firestoreService.deleteLogById(this.selectedRowToDelete.id).subscribe({
+        next: () => {
+          // Remove the row from the table data
+          this.tableData = this.tableData.filter(item => item.id !== this.selectedRowToDelete?.id);
+          this.showRowDeletionModal = false;  // Hide the modal
+        },
+        error: (err) => {
+          console.error('Failed to delete log:', err);
+        }
+      });
+    }
+  }
+
+  // Cancel the row deletion
+  cancelRowDeletion(): void {
+    this.showRowDeletionModal = false;  // Hide the modal without deleting
+  }
+
   // If user cancels inside modal
   cancelDeletionInModal(): void {
     this.showDeletionModal = false;
+    
   }
 
   // Deselect all rows
   deselectAllRows(): void {
     this.tableData.forEach(item => item.selected = false);
-    this.showConfirmDeletion = false;
   }
 
   // Sort the table by a specific column
