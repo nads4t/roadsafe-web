@@ -95,7 +95,11 @@
           </td>
           <td><img [src]="item.image" alt="Item Image" class="image-small-rounded" /></td>
           <td>{{ item.confidence }}</td>
-          <td>{{ item.readableDate | date:'medium' }}</td>
+          <td>
+            <div class="date-container">
+              <span class="date-top">{{ item.readableDate | date:'longDate' }}</span>
+              <span class="date-bottom">{{ item.readableDate | date:'shortTime' }}</span>
+            </div>
           <td>
             <div class="location-container">
               <span class="location-text">{{ item.address || 'Loading address...' }}</span>

@@ -308,16 +308,19 @@ button.manage-button:hover {
 }
 
 /* Location */
+.date-container,
 .location-container {
     display: block;
 }
 
+.date-top,
 .location-text {
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
+.date-bottom,
 .address-text {
     display: block;
     font-size: 0.9rem;

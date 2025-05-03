@@ -280,17 +280,19 @@
   outline: none;
 }
 
-
+.date-container,
 .location-container {
   display: block; /* Keeps the location and address within the same cell */
 }
 
+.date-top,
 .location-text {
   display: block; /* Ensures location takes full width */
   overflow: hidden; /* Hides the overflowing text */
   text-overflow: ellipsis; /* Adds the ellipsis (...) if the text overflows */
 }
 
+.date-bottom,
 .address-text {
   display: block; /* Makes the address appear below the location */
   font-size: 0.9rem; /* Adjust font size */
