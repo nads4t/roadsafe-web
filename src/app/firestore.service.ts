@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Firestore, collection, collectionData, query, where, doc, deleteDoc, writeBatch } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Timestamp } from 'firebase/firestore';
+import { Timestamp, updateDoc } from 'firebase/firestore';
 import mapboxgl from 'mapbox-gl';
 
 @Injectable({ providedIn: 'root' })
@@ -124,5 +124,25 @@ export class FirestoreService {
         });
     });
   }  
+
+  updateStatus(logId: string, status: string): Observable<any> {
+    const logRef = doc(this.firestore, 'road damage detections', logId); // Reference to the specific log by its ID
+
+    // Update the status of the log
+    return new Observable(observer => {
+      updateDoc(logRef, {
+        status, // The new status value
+        updatedAt: new Date() // Timestamp of when the status was updated
+      })
+        .then(() => {
+          observer.next(`Status for log ID ${logId} updated to ${status} successfully.`);
+          observer.complete();
+        })
+        .catch((error) => {
+          console.error('Error updating status:', error);
+          observer.error(error);
+        });
+    });
+  }
 
 }

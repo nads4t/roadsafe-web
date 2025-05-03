@@ -16,6 +16,7 @@ interface TableDataItem {
   timestamp?: any;
   address?: string;
   selected?: boolean;  // Add a 'selected' property for checkbox state
+  status?: string;  // New status field
 }
 
 @Component({
@@ -39,6 +40,9 @@ export class LogsComponent implements OnInit {
   searchTerm: string = ''; // Search term to filter logs
   currentPage: number = 1;
   itemsPerPage: number = 10;
+  newStatus: string = '';  // Store the new status selected by the user
+
+
   currentSort = {
     column: '',
     direction: 'asc'
@@ -84,6 +88,8 @@ export class LogsComponent implements OnInit {
       error: (err) => console.error('Error loading data:', err)
     });
   }
+
+
 
   // Apply search filter on tableData
   applySearch(): void {
@@ -305,15 +311,32 @@ export class LogsComponent implements OnInit {
     this.showRowModal = false;
   }
 
-  openUpdateModal(item: any) {
+  openUpdateModal(item: TableDataItem): void {
     this.selectedRowData = item;
-    this.showUpdateModal = true;
+    this.newStatus = item.status || '';  // Set the current status as the selected value
+    this.showUpdateModal = true;  // Show the modal
   }
 
   closeUpdateModal() {
     this.showUpdateModal = false;
   }
 
-  
+  updateLogStatus(): void {
+    if (this.selectedRowData && this.newStatus) {
+      const logId = this.selectedRowData.id;
+      this.firestoreService.updateStatus(logId, this.newStatus).subscribe({
+        next: () => {
+          // Update the status locally in the table data
+          this.selectedRowData!.status = this.newStatus;
+          this.showUpdateModal = false;  // Close the modal after update
+        },
+        error: (err) => {
+          console.error('Failed to update log status:', err);
+        }
+      });
+    } else {
+      console.error('No log selected or status is empty');
+    }
+  }
 
 }
