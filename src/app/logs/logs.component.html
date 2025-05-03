@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+
 <div class="table_view">
   <div class="logs-header">
     <h2 class="logs-title">Logs</h2>
@@ -76,10 +79,11 @@
               {{ currentSort.column === 'prediction' ? (currentSort.direction === 'asc' ? '▲' : '▼') : '▲' }}
             </span>
           </th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of getPaginatedData(); let i = index" class="clickable-row" (click)="deleteMode ? null : openRowModal(item)">
+        <tr *ngFor="let item of getPaginatedData(); let i = index" class="clickable-row">
           <td>
             <input *ngIf="deleteMode" type="checkbox" [(ngModel)]="item.selected" (change)="checkSelectedRows()" />
           </td>
@@ -93,6 +97,11 @@
             </div>
           </td>
           <td>{{ item.prediction }}</td>
+          <td>
+            <i class="fa-solid fa-eye" style="margin-right: 8px;"  (click)="openRowModal(item)"></i>
+            <i class="fa-solid fa-pen-to-square" style="margin-right: 8px;"></i>
+            <i class="fa-solid fa-trash-can" style="color: red;"></i>
+          </td>
         </tr>
       </tbody>
     </table>

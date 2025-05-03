@@ -188,9 +188,9 @@ html, body {
 
 .logs-table th:nth-child(5),
 .logs-table td:nth-child(5) {
-    width: 800px;
-    min-width:800px;
-    max-width:  800px;
+    width: 600px;
+    min-width:600px;
+    max-width:  600px;
 }
 
 
