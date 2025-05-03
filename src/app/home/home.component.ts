@@ -66,6 +66,23 @@ export class HomeComponent implements OnInit, AfterViewInit {
     return firstItem ? firstItem.image : 'assets/default-image.jpg'; // Fallback image if no data
   }
 
+  getStatusClass(status?: string): string {
+    if (!status) {
+      return 'no-status'; // Return class for default status
+    }
+  
+    switch (status) {
+      case 'in-progress':
+        return 'in-progress'; // Class for 'in-progress' status
+      case 'pending':
+        return 'pending'; // Class for 'pending' status
+      case 'resolved':
+        return 'resolved'; // Class for 'resolved' status
+      default:
+        return 'no-status'; // Default case for unknown status
+    }
+  }
+  
 
   filteredTableData() {
     return this.tableData.filter(item => {

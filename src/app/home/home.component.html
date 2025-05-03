@@ -103,6 +103,7 @@
                     {{ currentSort.column === 'prediction' ? (currentSort.direction === 'asc' ? '▲' : '▼') : '▲' }}
                   </span>
                 </th>
+                <th>Status</th>
               </tr>
             </thead>              
             <tbody>
@@ -117,6 +118,11 @@
                   </div>
                 </td>
                 <td>{{ item.prediction }}</td>
+                <td>
+                <span class="status-span" [ngClass]="getStatusClass(item.status)">
+                  {{ item.status || 'No Status' }}
+                </span>
+                </td>
               </tr>
             </tbody>
           </table>
