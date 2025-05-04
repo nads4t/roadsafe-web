@@ -23,6 +23,7 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
+  
 }
 
 /* 3. Card */
@@ -180,11 +181,17 @@ html, body {
 
   .card {
     width: 90%;
-    margin-left: 1rem; /* adjust as needed */
-    margin-right: 1rem; /* optional: keep it centered-ish */
+    margin-left: 1.5rem; /* adjust as needed */
+    margin-right: 1.5rem; /* optional: keep it centered-ish */
   }
   
   .card-right {
     display: none;
+  }
+
+  .background {
+    background-image: url('https://i.ibb.co/cK3hD1QF/491217162-475344848938181-5652417650372658418-n.jpg'); /* Add your image URL */
+    background-size: cover;
+    background-position: center;
   }
 }
