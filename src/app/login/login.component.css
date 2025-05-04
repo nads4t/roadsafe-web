@@ -175,3 +175,16 @@ html, body {
   text-align: center;
   margin-top: 1rem;
 }
+
+@media (max-width: 768px) {
+
+  .card {
+    width: 90%;
+    margin-left: 1rem; /* adjust as needed */
+    margin-right: 1rem; /* optional: keep it centered-ish */
+  }
+  
+  .card-right {
+    display: none;
+  }
+}
