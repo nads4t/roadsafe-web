@@ -46,6 +46,9 @@ export class AppComponent {
     if (currentUrl.startsWith('/logs')) {
       this.breadcrumb = 'Logs';
       this.showHomeLink = true;
+    } else if (currentUrl.startsWith('/map')) {
+      this.breadcrumb = 'Map';
+      this.showHomeLink = true;
     } else {
       this.breadcrumb = 'Home';
       this.showHomeLink = false;

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, NgZone } from '@angular/core';
 import { FirestoreService } from '../firestore.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
@@ -45,10 +45,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
 
   constructor(
-    private firestoreService: FirestoreService, private router: Router) {}
+    private firestoreService: FirestoreService, private router: Router, private zone: NgZone) {}
 
   ngOnInit(): void {
-    this.loadTableData();
+    this.loadTableData(); 
     this.loadUniqueUserCount();
     this.loadTodayCount(); // Load the count for today
   }
@@ -247,15 +247,42 @@ export class HomeComponent implements OnInit, AfterViewInit {
   private initMap(): void {
     // Create the map and set its initial view and zoom level
     this.map = L.map('map').setView([13.1480, 123.7132], 14);
-
+  
     // Add the tile layer to the map
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map);
-
+  
     // Add the custom legend control
     this.addLegendControl();
+  
+    // Add a custom button control
+    const customControl = L.Control.extend({
+      options: {
+        position: 'topright'
+      },
+  
+      onAdd: () => {
+        const button = L.DomUtil.create('button', 'leaflet-bar leaflet-control leaflet-control-custom');
+        button.innerHTML = 'Go to Page';
+        button.style.backgroundColor = 'white';
+        button.style.cursor = 'pointer';
+        button.style.padding = '5px';
+  
+        L.DomEvent.on(button, 'click', () => {
+          // Use Angular's Router to navigate
+          this.zone.run(() => {
+            this.router.navigate(['/map']);  // Replace with your actual route
+          });
+        });
+  
+        return button;
+      }
+    });
+  
+    this.map.addControl(new customControl());
   }
+  
 
   private addLegendControl(): void {
     // Create a new Control instance instead of using L.control()
