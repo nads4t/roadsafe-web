@@ -249,10 +249,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.map = L.map('map').setView([13.1480, 123.7132], 14);
   
     // Add the tile layer to the map
-    L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
-      maxZoom: 20,
-      attribution: '&copy; OpenStreetMap contributors & Stadia Maps',
-    }).addTo(this.map);
+     L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png?api_key=8e1c78a8-fb4b-41c8-82f1-efb4b8fbcdb8', {
+          maxZoom: 20,
+          attribution: '&copy; OpenStreetMap contributors & Stadia Maps',
+        }).addTo(this.map);
   
     // Add the custom legend control
     this.addLegendControl();

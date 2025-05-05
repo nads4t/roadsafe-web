@@ -25,7 +25,7 @@ export class MapComponent implements AfterViewInit {
   private initMap(): void {
     this.map = L.map('map').setView([13.1480, 123.7132], 14);
   
-    L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
+    L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png?api_key=8e1c78a8-fb4b-41c8-82f1-efb4b8fbcdb8', {
       maxZoom: 20,
       attribution: '&copy; OpenStreetMap contributors & Stadia Maps',
     }).addTo(this.map);
