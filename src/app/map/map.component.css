@@ -1,0 +1,20 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+
+  #map {
+    height: 100%;
+    width: 100%;
+  }
+  
+  .map_view {
+    height: 100vh; /* add this if missing */
+    position: relative;
+    overflow: hidden;
+    flex-grow: 4;
+    border-radius: 10px;
+    background: white;
+  }
