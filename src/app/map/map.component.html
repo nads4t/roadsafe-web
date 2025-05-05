@@ -1,6 +1,10 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 <div class="map_view" id="map">
+  <!-- Container to hold search and filter side by side -->
+  <div class="search-filter-wrapper">
+    <!-- Search Bar -->
     <div class="search-bar">
       <input
         class="search-input"
@@ -9,6 +13,8 @@
         (input)="onSearchInput()"
         placeholder="Search for an address"
       />
+
+      <!-- Search results dropdown -->
       <div *ngIf="searchResults.length > 0" class="dropdown">
         <ul>
           <li *ngFor="let result of searchResults" (click)="onSelectAddress(result)">
@@ -17,7 +23,27 @@
         </ul>
       </div>
     </div>
+
+    <!-- Filter Button and Dropdown -->
+    <!-- Filter Button and Dropdown -->
+    <div class="filter-container">
+      <button class="filter-button" (click)="toggleFilterPopup()">
+        <i class="fa-solid fa-filter"></i>
+      </button>
+
+      <!-- Conditionally display the popup -->
+      <div class="filter-dropdown" *ngIf="isFilterOpen">
+        <label>
+          <input type="checkbox" />
+          Filter Option
+        </label>
+      </div>
+    </div>
   </div>
+</div>
+
+
+
   
   
   

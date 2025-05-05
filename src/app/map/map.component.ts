@@ -154,6 +154,11 @@ export class MapComponent implements AfterViewInit {
     this.searchResults = [];
     this.searchQuery = '';
   }
+  
+  isFilterOpen = false;
 
+  toggleFilterPopup(): void {
+    this.isFilterOpen = !this.isFilterOpen;
+  }
 
 }
