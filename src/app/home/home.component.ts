@@ -249,8 +249,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.map = L.map('map').setView([13.1480, 123.7132], 14);
   
     // Add the tile layer to the map
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
+      maxZoom: 20,
+      attribution: '&copy; OpenStreetMap contributors & Stadia Maps',
     }).addTo(this.map);
   
     // Add the custom legend control
@@ -264,7 +265,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   
       onAdd: () => {
         const button = L.DomUtil.create('button', 'leaflet-bar leaflet-control leaflet-control-custom');
-        button.innerHTML = 'Go to Page';
+        button.innerHTML = '<i class="fa-solid fa-expand"></i>';
         button.style.backgroundColor = 'white';
         button.style.cursor = 'pointer';
         button.style.padding = '5px';
@@ -294,22 +295,24 @@ export class HomeComponent implements OnInit, AfterViewInit {
   
       // Apply styles to the legend container
       div.style.backgroundColor = 'white';  // Set background color to white
-      div.style.padding = '10px';  // Optional: Add padding for better spacing
-      div.style.borderRadius = '5px';  // Optional: Add rounded corners
+      div.style.padding = '11px';  // Optional: Add padding for better spacing
+      div.style.borderRadius = '5000px';  // Make the border radius circular
+      div.style.display = 'flex';  // Use flexbox to arrange items in a row
+      div.style.alignItems = 'center';  // Align items vertically in the center
+      div.style.justifyContent = 'space-evenly';  // Space items evenly across the row
   
       div.innerHTML = `
-        <strong>Marker Status</strong><br>
-        <div class="legend-item" style="display: flex; align-items: center;">
-          <span class="legend-color" style="background-color: orange; width: 20px; height: 20px; margin-right: 5px;"></span> Repair Underway
+        <div class="legend-item" style="display: flex; align-items: center; margin-right: 10px;">
+          <span class="legend-color" style="background-color: orange; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px;"></span> Repair Underway
         </div>
-        <div class="legend-item" style="display: flex; align-items: center;">
-          <span class="legend-color" style="background-color: yellow; width: 20px; height: 20px; margin-right: 5px;"></span> Awaiting Repair
+        <div class="legend-item" style="display: flex; align-items: center; margin-right: 10px;">
+          <span class="legend-color" style="background-color: yellow; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px;"></span> Awaiting Repair
         </div>
-        <div class="legend-item" style="display: flex; align-items: center;">
-          <span class="legend-color" style="background-color: green; width: 20px; height: 20px; margin-right: 5px;"></span> Fixed
+        <div class="legend-item" style="display: flex; align-items: center; margin-right: 10px;">
+          <span class="legend-color" style="background-color: green; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px;"></span> Fixed
         </div>
-        <div class="legend-item" style="display: flex; align-items: center;">
-          <span class="legend-color" style="background-color: blue; width: 20px; height: 20px; margin-right: 5px;"></span> Unassigned
+        <div class="legend-item" style="display: flex; align-items: center; margin-right: 10px;">
+          <span class="legend-color" style="background-color: blue; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px;"></span> Unassigned
         </div>
       `;
       

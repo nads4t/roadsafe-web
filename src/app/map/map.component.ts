@@ -25,9 +25,12 @@ export class MapComponent implements AfterViewInit {
   private initMap(): void {
     this.map = L.map('map').setView([13.1480, 123.7132], 14);
   
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
+    L.tileLayer('https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png', {
+      maxZoom: 20,
+      attribution: '&copy; OpenStreetMap contributors & Stadia Maps',
     }).addTo(this.map);
+
+    this.addLegendControl();
   
     this.map.zoomControl.setPosition('bottomright');
   
@@ -84,6 +87,46 @@ export class MapComponent implements AfterViewInit {
       });
     });
   }
+
+  private addLegendControl(): void {
+      // Create a new Control instance instead of using L.control()
+      const legend = new L.Control({ position: 'bottomleft' });
+    
+      // Add content to the legend
+      legend.onAdd = (map: L.Map) => {
+        const div = L.DomUtil.create('div', 'leaflet-legend');
+    
+        // Apply styles to the legend container
+        div.style.backgroundColor = 'white';  // Set background color to white
+        div.style.padding = '11px';  // Optional: Add padding for better spacing
+        div.style.borderRadius = '5000px';  // Make the border radius circular
+        div.style.display = 'flex';  // Use flexbox to arrange items in a row
+        div.style.alignItems = 'center';  // Align items vertically in the center
+        div.style.justifyContent = 'space-evenly';  // Space items evenly across the row
+    
+        div.innerHTML = `
+          <div class="legend-item" style="display: flex; align-items: center; margin-right: 10px;">
+            <span class="legend-color" style="background-color: orange; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px;"></span> Repair Underway
+          </div>
+          <div class="legend-item" style="display: flex; align-items: center; margin-right: 10px;">
+            <span class="legend-color" style="background-color: yellow; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px;"></span> Awaiting Repair
+          </div>
+          <div class="legend-item" style="display: flex; align-items: center; margin-right: 10px;">
+            <span class="legend-color" style="background-color: green; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px;"></span> Fixed
+          </div>
+          <div class="legend-item" style="display: flex; align-items: center; margin-right: 10px;">
+            <span class="legend-color" style="background-color: blue; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px;"></span> Unassigned
+          </div>
+        `;
+        
+        return div;
+      };
+    
+      // Add the legend to the map
+      if (this.map) {
+        legend.addTo(this.map);
+      }
+    }
 
   // Method to handle search input change
   onSearchInput(): void {
