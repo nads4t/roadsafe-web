@@ -1,1 +1,24 @@
-<div class="map_view" id="map"></div>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<div class="map_view" id="map">
+    <div class="search-bar">
+      <input
+        class="search-input"
+        type="text"
+        [(ngModel)]="searchQuery"
+        (input)="onSearchInput()"
+        placeholder="Search for an address"
+      />
+      <div *ngIf="searchResults.length > 0" class="dropdown">
+        <ul>
+          <li *ngFor="let result of searchResults" (click)="onSelectAddress(result)">
+            {{ result.place_name }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
