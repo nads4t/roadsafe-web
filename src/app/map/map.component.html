@@ -28,7 +28,7 @@
     <!-- Filter Button and Dropdown -->
     <div class="filter-container">
       <button class="filter-button" (click)="toggleFilterPopup()">
-        <i class="fa-solid fa-filter"></i> Filter
+        <i class="fa-solid fa-filter"></i> 
       </button>
     
       <!-- Conditionally display the popup -->
@@ -41,7 +41,14 @@
               [checked]="selectedStatuses.includes(status)"
               (change)="onStatusFilterChange(status, $event)"
             />
-            {{ status }}
+            <!-- Capitalize and display the readable status labels -->
+            <ng-container [ngSwitch]="status">
+              <span *ngSwitchCase="'repair-underway'">Repair Underway</span>
+              <span *ngSwitchCase="'awaiting-repair'">Awaiting Repair</span>
+              <span *ngSwitchCase="'fixed'">Fixed</span>
+              <span *ngSwitchCase="'unassigned'">Unassigned</span>
+              <span *ngSwitchDefault>{{ status | titlecase }}</span> <!-- Default to capitalized status -->
+            </ng-container>
           </label>
         </div>
       </div>
