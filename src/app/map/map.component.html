@@ -28,17 +28,25 @@
     <!-- Filter Button and Dropdown -->
     <div class="filter-container">
       <button class="filter-button" (click)="toggleFilterPopup()">
-        <i class="fa-solid fa-filter"></i>
+        <i class="fa-solid fa-filter"></i> Filter
       </button>
-
+    
       <!-- Conditionally display the popup -->
       <div class="filter-dropdown" *ngIf="isFilterOpen">
-        <label>
-          <input type="checkbox" />
-          Filter Option
-        </label>
+        <div *ngFor="let status of statuses">
+          <label>
+            <input
+              type="checkbox"
+              [value]="status"
+              [checked]="selectedStatuses.includes(status)"
+              (change)="onStatusFilterChange(status, $event)"
+            />
+            {{ status }}
+          </label>
+        </div>
       </div>
     </div>
+    
   </div>
 </div>
 
