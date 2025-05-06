@@ -160,37 +160,37 @@ html, body {
 
 .logs-table th:first-child,
 .logs-table td:first-child {
-    width: 30px; /* adjust as needed */
-    min-width:  30px;
-    max-width:  30px;
+    width: 15px; /* adjust as needed */
+    min-width:  15px;
+    max-width:  15px;
 }
 
 .logs-table th:nth-child(2),
 .logs-table td:nth-child(2) {
-    width: 60px;
-    min-width: 60px;
-    max-width: 60px;
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
 }
 
 .logs-table th:nth-child(3),
 .logs-table td:nth-child(3) {
-    width: 120px;
-    min-width: 120px;
-    max-width: 120px;
+    width: 80px;
+    min-width: 80px;
+    max-width: 80px;
 }
 
 .logs-table th:nth-child(4),
 .logs-table td:nth-child(4) {
-    width: 120px;
-    min-width: 120px;
-    max-width:  120px;
+    width: 100px;
+    min-width: 100px;
+    max-width:  100px;
 }
 
 .logs-table th:nth-child(5),
 .logs-table td:nth-child(5) {
-    width: 600px;
-    min-width:600px;
-    max-width: 600px;
+    width: 630px;
+    min-width:630px;
+    max-width: 630px;
 }
 
 .logs-table th:nth-child(6),
@@ -202,6 +202,9 @@ html, body {
 
 .logs-table th:nth-child(7),
 .logs-table td:nth-child(7) {
+  width: 200px;
+    min-width:200px;
+    max-width: 200px;
 text-align: center;
 }
 
