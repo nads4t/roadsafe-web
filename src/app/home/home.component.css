@@ -411,6 +411,35 @@
     padding: 0.5rem;
     font-size: 0.9rem;
   }
+
+  #map{
+    height: 35%;
+  }
+
+  .square1{
+    height: 8%;
+  }
+
+  .ellipsis-address{
+    max-width: 280px;
+  }
+
+  .header-text{
+    display: inline-block;
+      max-width: 280px; /* or any width you want */
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+  }
+
+  .footer-text{
+    display: inline-block;
+      max-width: 250px; /* or any width you want */
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      
+  }
 }
 
 /* Scrollbar styling for table */
