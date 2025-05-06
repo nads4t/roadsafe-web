@@ -816,7 +816,7 @@ th.sortable{
   }
 
   @media (max-width: 768px) {
-    .logs-table {
+    .logs-table-wrapper {
         max-width: 600px; /* Minimum width to trigger horizontal scrolling */
     }
 }
