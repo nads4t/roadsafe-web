@@ -137,7 +137,7 @@ html, body {
 
 /* Table Wrapper */
 .logs-table-wrapper {
-    max-height: 400px;
+    max-height: 420px;
     overflow-y: auto;
 }
 
@@ -814,3 +814,9 @@ th.sortable{
     vertical-align: middle;
     border-radius: 5000px;
   }
+
+  @media (max-width: 768px) {
+    .logs-table {
+        max-width: 600px; /* Minimum width to trigger horizontal scrolling */
+    }
+}
