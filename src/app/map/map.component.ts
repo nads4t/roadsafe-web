@@ -40,6 +40,7 @@ export class MapComponent implements AfterViewInit {
     }).addTo(this.map);
 
     this.addLegendControl();
+    
     this.map.zoomControl.setPosition('bottomright');
 
     this.firestoreService.getTableData().subscribe((detections: any[]) => {
@@ -61,13 +62,13 @@ export class MapComponent implements AfterViewInit {
   private updateMapMarkers(): void {
     this.mapMarkers.forEach(marker => this.map?.removeLayer(marker));
     this.mapMarkers = [];
-
+  
     this.filteredPins.forEach(item => {
       const location = item.location;
       if (location?.latitude && location?.longitude) {
         const latLng: [number, number] = [location.latitude, location.longitude];
         const status = item.status ?? 'unassigned';
-
+  
         let markerIcon: L.Icon;
         switch (status) {
           case 'repair-underway':
@@ -82,18 +83,61 @@ export class MapComponent implements AfterViewInit {
           default:
             markerIcon = L.icon({ iconUrl: 'assets/marker-icon-blue.png', iconSize: [25, 41], iconAnchor: [12, 41], popupAnchor: [1, -34] });
         }
-
+  
         const marker = L.marker(latLng, { icon: markerIcon })
-          .addTo(this.map!)
-          .bindPopup(`
-            <strong>Status:</strong> ${status}<br>
-            <strong>Date:</strong> ${item.readableDate?.toLocaleString() || ''}
-          `);
-
-        this.mapMarkers.push(marker);
+          .addTo(this.map!);
+        
+        // First check if we already have an address
+        if (item.address) {
+          marker.bindPopup(this.createPopupContent(item));
+          this.mapMarkers.push(marker);
+        } else {
+          // If no address, fetch it from coordinates
+          this.firestoreService.getAddressFromCoordinates(location.latitude, location.longitude)
+            .subscribe({
+              next: (addressData) => {
+                item.address = addressData ? addressData.place_name : 'Address not available';
+                marker.bindPopup(this.createPopupContent(item));
+                this.mapMarkers.push(marker);
+              },
+              error: (err) => {
+                console.error('Error fetching address:', err);
+                item.address = 'Address not available';
+                marker.bindPopup(this.createPopupContent(item));
+                this.mapMarkers.push(marker);
+              }
+            });
+        }
       }
     });
   }
+  
+  private createPopupContent(item: any): string {
+    // Ensure we check for the image property that contains the URL
+    // This might be named differently in your data - adjust as needed
+    const imageUrl = item.image || item.imageUrl || item.imageData || item.photoUrl;
+    
+    return `
+      <div class="leaflet-popup-content-wrapper">
+        <div class="leaflet-popup-content">
+          ${imageUrl ? 
+            `<div style="text-align: center;">
+              <img src="${imageUrl}" alt="Damage Image" 
+                   style="max-width: 200px; max-height: 150px; border-radius: 4px; margin-bottom: 8px;">
+            </div>` : '<div style="text-align: center; color: #666; margin-bottom: 8px;">No image available</div>'}
+          <div style="margin-top: 8px;">
+            <b>Status:</b> ${item.status || 'Unassigned'}<br>
+            <b>Prediction:</b> ${item.prediction || 'Unknown'}<br>
+            <b>Confidence:</b> ${item.confidence ? (item.confidence * 100).toFixed(2) + '%' : 'N/A'}<br>
+            <b>Date:</b> ${item.readableDate?.toLocaleString() || 'N/A'}<br>
+            <b>Address:</b> ${item.address || 'Address loading...'}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  
 
   private addLegendControl(): void {
     const legend = new L.Control({ position: 'bottomleft' });
