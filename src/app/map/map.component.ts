@@ -143,33 +143,37 @@ export class MapComponent implements AfterViewInit {
     const legend = new L.Control({ position: 'bottomleft' });
     legend.onAdd = () => {
       const div = L.DomUtil.create('div', 'leaflet-legend');
-      div.style.backgroundColor = 'white';
-      div.style.padding = '11px';
-      div.style.borderRadius = '5000px';
-      div.style.display = 'flex';
-      div.style.alignItems = 'center';
-      div.style.justifyContent = 'space-evenly';
-
+      Object.assign(div.style, {
+        backgroundColor: 'white',
+        padding: '6px 10px',
+        borderRadius: '4px',
+        boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+        fontFamily: 'Arial, sans-serif',
+        fontSize: '10px',
+        lineHeight: '1.4'
+      });
+  
       div.innerHTML = `
-        <div style="display: flex; align-items: center; margin-right: 10px;">
-          <span style="background-color: orange; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px;"></span> Repair Underway
-        </div>
-        <div style="display: flex; align-items: center; margin-right: 10px;">
-          <span style="background-color: yellow; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px;"></span> Awaiting Repair
-        </div>
-        <div style="display: flex; align-items: center; margin-right: 10px;">
-          <span style="background-color: green; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px;"></span> Fixed
-        </div>
-        <div style="display: flex; align-items: center; margin-right: 10px;">
-          <span style="background-color: blue; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px;"></span> Unassigned
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          ${[
+            ['orange', 'Repair Underway'],
+            ['yellow', 'Awaiting Repair'],
+            ['green', 'Fixed'],
+            ['blue', 'Unassigned']
+          ].map(([color, text]) => `
+            <div style="display: flex; align-items: center;">
+              <span style="background-color: ${color}; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; border: 1px solid #555;"></span>
+              <span>${text}</span>
+            </div>
+          `).join('')}
         </div>
       `;
       return div;
     };
-
+  
     this.map?.addControl(legend);
   }
-
+  
   onSearchInput(): void {
     if (this.searchQuery.length > 2) {
       this.firestoreService.getAddressSuggestions(this.searchQuery).subscribe(results => {
