@@ -163,16 +163,19 @@
     }
 
     getAddressSuggestions(query: string): Observable<any[]> {
-      const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${query}.json?access_token=${this.mapboxAccessToken}`;
-
+      const latitude = 13.1394;   // Latitude for Legazpi City, Bicol
+      const longitude = 123.7438; // Longitude for Legazpi City, Bicol
+    
+      const geocodingUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${this.mapboxAccessToken}&country=PH&proximity=${longitude},${latitude}`;
+    
       return new Observable(observer => {
         fetch(geocodingUrl)
           .then(response => response.json())
           .then(data => {
             if (data && data.features) {
-              observer.next(data.features); // Return the features (address suggestions)
+              observer.next(data.features); 
             } else {
-              observer.next([]); // Return empty array if no results
+              observer.next([]); 
             }
             observer.complete();
           })
