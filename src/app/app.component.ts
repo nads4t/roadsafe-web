@@ -69,4 +69,10 @@ export class AppComponent {
       console.error('Logout error', error);
     });
   }
+
+  dropdownVisible = false;
+
+  toggleDropdown() {
+    this.dropdownVisible = !this.dropdownVisible;
+  }
 }

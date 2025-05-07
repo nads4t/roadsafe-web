@@ -8,7 +8,23 @@
     </ng-template>
   </div>
 
-  <div class="nav-right logout" (click)="logout()">Log Out</div>
+  <div class="nav-right">
+    <span class="notification" (click)="toggleDropdown()">
+      <i class="fa-solid fa-bell"></i>
+    </span>
+  
+    <span class="logout">Log Out</span>
+  
+    <!-- Dropdown Menu -->
+    <div *ngIf="dropdownVisible" class="dropdown-menu">
+      <ul>
+        <li class="dropdown-item">
+          <span class="primary-text">[prediction] Detected at [location]</span>
+          <span class="secondary-text">[date]</span>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>
 
 <main class="content-wrapper">
