@@ -12,7 +12,5 @@ export const routes: Routes = [
   { path: 'logs', component: LogsComponent, canActivate: [authGuard] },
     { path: 'home', component: PublicComponent, canActivate: [authGuard] },
   { path: 'map', component: MapComponent, canActivate: [authGuard] }, // <-- 🔒 Protected!
-    { path: 'error', component: ErrorComponent },
-  { path: '**', redirectTo: '/error' },  // Wildcard route for undefined paths
   { path: 'login', component: LoginComponent }
 ];
