@@ -1,0 +1,37 @@
+.error-container {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f8f8;
+  color: #333;
+}
+
+.error-code {
+  font-size: 6rem; 
+  font-weight: bold;
+  color: #ff4d4f;
+  margin: 0;  /* Remove default margin */
+  line-height: 1;  /* Reduce line height */
+}
+
+.error-message {
+  font-size: 1.25rem;
+  color: #555;
+  margin: 0.25rem 0 1.5rem 0;  /* Small space above and below */
+}
+
+.home-link {
+  padding: 10px 20px;
+  background-color: #f48c44;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.home-link:hover {
+  background-color: #ff6f09;
+  cursor: pointer;
+}
