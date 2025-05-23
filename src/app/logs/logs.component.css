@@ -188,9 +188,9 @@ html, body {
 
 .logs-table th:nth-child(5),
 .logs-table td:nth-child(5) {
-    width: 630px;
-    min-width:630px;
-    max-width: 630px;
+    width: 500px;
+    min-width:500px;
+    max-width: 500px;
 }
 
 .logs-table th:nth-child(6),
@@ -208,6 +208,12 @@ html, body {
 text-align: center;
 }
 
+.logs-table th:nth-child(8),
+.logs-table td:nth-child(8) {
+  width: 200px;
+    min-width:200px;
+    max-width: 200px;
+}
 
 
 
@@ -818,8 +824,3 @@ th.sortable{
     border-radius: 5000px;
   }
 
-  @media (max-width: 768px) {
-    .logs-table-wrapper {
-        max-width: 600px; /* Minimum width to trigger horizontal scrolling */
-    }
-}
