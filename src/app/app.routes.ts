@@ -8,9 +8,9 @@ import { PublicComponent } from './public/public.component';
 import { ErrorComponent } from './error/error.component';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [authGuard] },
-  { path: 'logs', component: LogsComponent, canActivate: [authGuard] },
-    { path: 'home', component: PublicComponent, canActivate: [authGuard] },
-  { path: 'map', component: MapComponent, canActivate: [authGuard] }, // <-- 🔒 Protected!
+  { path: '', component: HomeComponent },
+  { path: 'logs', component: LogsComponent },
+    { path: 'home', component: PublicComponent },
+  { path: 'map', component: MapComponent },
   { path: 'login', component: LoginComponent }
 ];
