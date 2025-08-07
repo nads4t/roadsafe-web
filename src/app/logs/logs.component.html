@@ -114,8 +114,8 @@
           </td>
           <td>
             <i class="fa-solid fa-eye" style="margin-right: 10px; cursor: pointer;"  (click)="openRowModal(item)"></i>
-            <i class="fa-solid fa-pen-to-square" style="margin-right: 10px; cursor: pointer;" (click)="openUpdateModal(item)"></i>
-            <i class="fa-solid fa-trash-can" style="color: red; cursor: pointer;" (click)="openRowDeletionModal(item)"></i>
+            <i class="fa-solid fa-pen-to-square" style="margin-right: 10px; cursor: pointer;" data-disabled-click="openUpdateModal(item)"></i>
+            <i class="fa-solid fa-trash-can" style="color: red; cursor: pointer;" data-disabled-click="openRowDeletionModal(item)"></i>
           </td>
         </tr>
       </tbody>
@@ -180,7 +180,7 @@
   <span class="additional-text">
     <i class="fa-solid fa-pen-to-square" ></i> Status
   </span>
-  <span class="additional-text" (click)="openDeletionModal()">
+  <span class="additional-text" (click)="openDeletionModal()" >
     <i class="fa-solid fa-trash-can"></i> Delete
   </span>
 </div>

@@ -11,5 +11,6 @@ export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'logs', component: LogsComponent },
     { path: 'home', component: PublicComponent },
-  { path: 'map', component: MapComponent }
+  { path: 'map', component: MapComponent }, // <-- 🔒 Protected!
+  { path: 'login', component: LoginComponent }
 ];
