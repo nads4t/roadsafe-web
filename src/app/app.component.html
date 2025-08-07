@@ -1,4 +1,8 @@
-<nav *ngIf="loggedIn" class="top-nav">
+
+
+<!-- <nav *ngIf="loggedIn" class="top-nav"> -->
+
+  <nav class="top-nav">
   <div class="nav-left">
     <ng-container *ngIf="showHomeLink; else justHome">
       <a (click)="goHome()" class="home-link">Home</a> <span class="arrow"> >    </span> <span>{{ breadcrumb }}</span>
@@ -8,10 +12,10 @@
     </ng-template>
   </div>
 
-  <div class="nav-right">
-    <span class="notification" (click)="toggleDropdown()">
-      <i class="fa-solid fa-bell"></i>
-    </span>
+
+  <!-- alisin niyo na lang display none para lumabas yung logout button hahaha -->
+  <div class="nav-right" style="display:none;">
+  
   
     <span class="logout" (click)="logout()">Log Out</span>
   
