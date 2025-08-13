@@ -450,21 +450,23 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   private createPopupContent(item: TableDataItem, address: string): string {
     return ` 
-      <div class="leaflet-popup-content-wrapper">
-        <div class="leaflet-popup-content">
-          <div style="text-align: center;">
-            <img src="${item.image}" alt="Damage Image" 
-                 style="max-width: 200px; max-height: 150px; border-radius: 4px; margin-bottom: 8px;">
-          </div>
-          <div style="margin-top: 8px;">
-            <b>Prediction:</b> ${item.prediction}<br>
-            <b>Confidence:</b> ${item.confidence}<br>
-            <b>Date:</b> ${new Date(item.readableDate).toLocaleString()}<br>
-            <b>Address:</b> ${address}
-          </div>
-        </div>
+       <div class="leaflet-popup-content-wrapper">
+    <div class="leaflet-popup-content">
+      <div style="text-align: center;">
+        <a href="${item.image}" target="_blank" rel="noopener noreferrer">
+          <img src="${item.image}" alt="Damage Image" 
+               style="max-width: 200px; max-height: 150px; border-radius: 4px; margin-bottom: 8px; cursor: pointer;">
+        </a>
       </div>
-    `;
+      <div style="margin-top: 8px;">
+        <b>Prediction:</b> ${item.prediction}<br>
+        <b>Confidence:</b> ${item.confidence}<br>
+        <b>Date:</b> ${new Date(item.readableDate).toLocaleString()}<br>
+        <b>Address:</b> ${address}
+      </div>
+    </div>
+  </div>
+`;
   }
 
   private clearMarkers(): void {
