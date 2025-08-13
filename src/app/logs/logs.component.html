@@ -141,27 +141,31 @@
 <!-- MODAL -->
 <div *ngIf="showRowModal" class="details-modal">
   <div class="details-modal-content">
-    <!-- Big Image at the top -->
-    <img [src]="selectedRowData?.image" alt="Item Image" class="details-image-large" />
+    <!-- Big Image at the top with clickable link -->
+    <a [href]="selectedRowData?.image" target="_blank" rel="noopener noreferrer">
+      <img [src]="selectedRowData?.image" alt="Item Image" class="details-image-large" style="cursor: pointer;" />
+    </a>
     
     <!-- Details Section -->
     <div class="details-section">
       <div class="details-left">
         <!-- Display the address instead of the location object -->
-        <p style="padding-top: 0."><b>{{ selectedRowData?.address || 'Address not available' }}</b></p>
+        <p style="padding-top: 0;"><b>{{ selectedRowData?.address || 'Address not available' }}</b></p>
         <p style="margin: 0; color: gray">{{ selectedRowData?.readableDate | date: 'medium' }}</p>
       </div>
       
       <div class="details-right">
         <p style="display: inline-block; background-color: orange; padding: 0.1rem 1rem; border-radius: 5000px; color: white;">
           {{ selectedRowData?.prediction }}</p>
-          <p style="margin: 0; color: gray">{{ selectedRowData?.confidence * 100 | number:'1.0-0' }}% Confidence</p>
-        </div>
+        <p style="margin: 0; color: gray">{{ selectedRowData?.confidence * 100 | number:'1.0-0' }}% Confidence</p>
+      </div>
     </div>
+    
     <!-- Close Button -->
     <button class="details-modal-confirm" (click)="closeRowModal()">Close</button>
   </div>
 </div>
+
 
 <div *ngIf="showRowDeletionModal" class="floating-modal">
   <div class="floating-modal-content">
